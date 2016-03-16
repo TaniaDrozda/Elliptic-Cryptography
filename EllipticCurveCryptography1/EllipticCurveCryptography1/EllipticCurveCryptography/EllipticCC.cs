@@ -14,27 +14,22 @@ namespace EllipticCurveCryptography
     {
         public static void Generate_Point_EC(BigInteger a, BigInteger b, BigInteger p, out List<BigInteger[]> AffinePoints)
         {
-
-            AffinePoints = new List<BigInteger[]>();
-                                          
+            AffinePoints = new List<BigInteger[]>();                                         
             for (int x = 0; x < p; x++)
             {
                 for (int y = 0; y < p; y++)
                 {
                     if ((y * y - x * x * x - a * x - b) % p == 0)
                     {
-
-                        BigInteger[] coord = new BigInteger[2];
+                        BigInteger[] coord = new BigInteger[3];
                         coord[0] = x;
                         coord[1] = y;
-                        
+                        coord[2] = 1;                  
                         AffinePoints.Add(coord);
                     }
-                }
-               
+                }               
             }
         }
-
         public static void generateSimplePointInProjectiveCoord(BigInteger a, BigInteger b, BigInteger p, out List<BigInteger[]> ProjectivePoints)
         {
             ProjectivePoints = new List<BigInteger[]>();
@@ -57,29 +52,29 @@ namespace EllipticCurveCryptography
                     }
                 }
             }
-           
-                        /*
-                        ProjectivePoints = new List<BigInteger[]>();
-
-                        for (int x = 1; x < p; x++)
-                        {
-                            for (int y = 1; y < p; y++)
-                            {
-                                for (int z = 1; z < p; z++)
-                                {
-                                    if ((y * y * z) % p == (x * x * x + a * x * z * z + b * z*z*z) % p )
-                                    {
-
-                                        BigInteger[] coord = new BigInteger[3];
-                                        coord[0] = x;
-                                        coord[1] = y;
-                                        coord[2] = z;
-                                        ProjectivePoints.Add(coord);
-                                    }
-                                }
-                            }
-
-                        }*/
+        }
+        public static void generateSimplePointInJocobianCoord(BigInteger a, BigInteger b, BigInteger p, out List<BigInteger[]> JacobianPoints)
+        {
+            JacobianPoints = new List<BigInteger[]>();
+            List<BigInteger[]> AffinePoints = new List<BigInteger[]>();
+            AffinePoints.ToArray();
+            Generate_Point_EC(a, b, p, out AffinePoints);
+            foreach (BigInteger[] array in AffinePoints)
+            {
+                for (BigInteger z = 2; z < p; z++)
+                {
+                    BigInteger x = array[0] * z % p;
+                    BigInteger y = array[1] * z % p;
+                    if ((y * y) % p == (BigInteger.Pow(x,3) + a * x * BigInteger.Pow(z,4) + b * BigInteger.Pow(z,6)) % p) // this if allways true
+                    {
+                        BigInteger[] coord = new BigInteger[3];
+                        coord[0] = x;
+                        coord[1] = y;
+                        coord[2] = z;
+                        JacobianPoints.Add(coord);
+                    }
+                }
+            }
         }
         public static void Generate_Point_EC_(BigInteger a, BigInteger b, BigInteger p, int quantity, out List<BigInteger[]> K)
         {
