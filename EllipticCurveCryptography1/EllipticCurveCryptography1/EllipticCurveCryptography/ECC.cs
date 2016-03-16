@@ -2366,7 +2366,6 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_27(x1, y1, z1, a, k, p, out x2, out y2, out z2, B, S, M, type, out time);
@@ -2379,71 +2378,60 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
-
-
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_28(x1, y1, z1, a, k, p, out x2, out y2, out z2, B, S, M, type, out time);
                 dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 ProjectiveToAffine(x2, y2, z2, p, out x3, out y3, out z3);
                 dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_29(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
                 dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 ProjectiveToAffine(x2, y2, z2, p, out x3, out y3, out z3);
                 dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_30(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
                 dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 ProjectiveToAffine(x2, y2, z2, p, out x3, out y3, out z3);
                 dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_31(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
                 dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 ProjectiveToAffine(x2, y2, z2, p, out x3, out y3, out z3);
                 dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_32(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
                 dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 ProjectiveToAffine(x2, y2, z2, p, out x3, out y3, out z3);
@@ -2468,15 +2456,20 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             a = BigInteger.Parse(richTextBox4.Text);
             b = -3;
             p = BigInteger.Parse(richTextBox5.Text);
-
             a_max = BigInteger.Parse(textBox27.Text);
             b_max = BigInteger.Parse(textBox28.Text);
-
             k = BigInteger.Parse(textBox4.Text);
             w = int.Parse(textBox5.Text);
+            BigInteger[] S;
+            BigInteger[] M;
+            BigInteger B;
+            B = BigInteger.Parse(textBox26.Text);
+            S = writeToArray(textBox29);
+            M = writeToArray(textBox30);
 
             string[] numOfAlg = new string[] { "1", "1", "2", "2", "3", "3", "4", "4", "5", "5", "6", "6", "7_1", "7_1", "7_2", "7_2", "8", "8", "9", "9", "10", "10", "11_1", "11_1", "11_2", "11_2", "12", "12", 
-                "13", "13", "14", "14", "15", "15", "16", "16", "17", "17", "18", "18", "19_1", "19_1", "19_2", "19_2", "20_1", "20_1", "20_2", "20_2", "21", "21", "22", "22" };
+                "13", "13", "14", "14", "15", "15", "16", "16", "17", "17", "18", "18", "19_1", "19_1", "19_2", "19_2", "20_1", "20_1", "20_2", "20_2", "21", "21", "22", "22", "27", "27", "28", "28", "29", "29",
+                "30", "30", "31", "31", "32", "32"};
 
             double time = 0;
 
@@ -2485,9 +2478,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             z1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[2].Value.ToString());
 
             BigInteger x3, y3, z3;
-
             int type = 2;
-
             if (x1 == 0 || y1 == 0)
                 MessageBox.Show("Выбирете точку!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
@@ -2750,7 +2741,6 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_19_2(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
@@ -2775,7 +2765,6 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
-
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_20(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
@@ -2803,6 +2792,78 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_22(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_27(x1, y1, z1, a, k, p, out x2, out y2, out z2, B, S, M, type, out time);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_28(x1, y1, z1, a, k, p, out x2, out y2, out z2, B, S, M, type, out time);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_29(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_30(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_31(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_32(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
                 dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
