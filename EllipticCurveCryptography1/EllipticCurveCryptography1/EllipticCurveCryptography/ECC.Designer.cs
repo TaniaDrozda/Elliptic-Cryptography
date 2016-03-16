@@ -217,6 +217,21 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label60 = new System.Windows.Forms.Label();
+            this.dataGridView7 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.ToAffineButton = new System.Windows.Forms.Button();
+            this.radioButton44 = new System.Windows.Forms.RadioButton();
+            this.radioButton45 = new System.Windows.Forms.RadioButton();
+            this.textBox45 = new System.Windows.Forms.TextBox();
+            this.textBox44 = new System.Windows.Forms.TextBox();
+            this.textBox43 = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
             this.textBox18 = new System.Windows.Forms.TextBox();
@@ -237,9 +252,11 @@
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
@@ -249,16 +266,6 @@
             this.Double = new System.Windows.Forms.Button();
             this.Add = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.textBox43 = new System.Windows.Forms.TextBox();
-            this.textBox44 = new System.Windows.Forms.TextBox();
-            this.textBox45 = new System.Windows.Forms.TextBox();
-            this.radioButton44 = new System.Windows.Forms.RadioButton();
-            this.radioButton45 = new System.Windows.Forms.RadioButton();
-            this.radioButton46 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox14.SuspendLayout();
@@ -277,13 +284,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
+            this.groupBox15.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox15.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -2216,6 +2224,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label60);
+            this.tabPage3.Controls.Add(this.dataGridView7);
             this.tabPage3.Controls.Add(this.groupBox15);
             this.tabPage3.Controls.Add(this.groupBox9);
             this.tabPage3.Controls.Add(this.groupBox8);
@@ -2232,6 +2242,146 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Операції над точками";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label60.Location = new System.Drawing.Point(247, 438);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(59, 13);
+            this.label60.TabIndex = 46;
+            this.label60.Text = "Результат";
+            this.label60.Click += new System.EventHandler(this.label60_Click);
+            // 
+            // dataGridView7
+            // 
+            this.dataGridView7.AllowUserToDeleteRows = false;
+            this.dataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12,
+            this.dataGridViewTextBoxColumn13});
+            this.dataGridView7.Location = new System.Drawing.Point(241, 454);
+            this.dataGridView7.Name = "dataGridView7";
+            this.dataGridView7.ReadOnly = true;
+            this.dataGridView7.Size = new System.Drawing.Size(535, 153);
+            this.dataGridView7.TabIndex = 45;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "X";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Y";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "Z";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.ToAffineButton);
+            this.groupBox15.Controls.Add(this.radioButton44);
+            this.groupBox15.Controls.Add(this.radioButton45);
+            this.groupBox15.Controls.Add(this.textBox45);
+            this.groupBox15.Controls.Add(this.textBox44);
+            this.groupBox15.Controls.Add(this.textBox43);
+            this.groupBox15.Controls.Add(this.label59);
+            this.groupBox15.Controls.Add(this.label58);
+            this.groupBox15.Controls.Add(this.label57);
+            this.groupBox15.Location = new System.Drawing.Point(15, 445);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(220, 209);
+            this.groupBox15.TabIndex = 44;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "Точка";
+            // 
+            // ToAffineButton
+            // 
+            this.ToAffineButton.Location = new System.Drawing.Point(25, 146);
+            this.ToAffineButton.Name = "ToAffineButton";
+            this.ToAffineButton.Size = new System.Drawing.Size(161, 44);
+            this.ToAffineButton.TabIndex = 28;
+            this.ToAffineButton.Text = "Перевести в Афінні координати";
+            this.ToAffineButton.UseVisualStyleBackColor = true;
+            this.ToAffineButton.Click += new System.EventHandler(this.ToAffineButton_Click);
+            // 
+            // radioButton44
+            // 
+            this.radioButton44.AutoSize = true;
+            this.radioButton44.Location = new System.Drawing.Point(93, 123);
+            this.radioButton44.Name = "radioButton44";
+            this.radioButton44.Size = new System.Drawing.Size(53, 17);
+            this.radioButton44.TabIndex = 27;
+            this.radioButton44.Text = "Якобі";
+            this.radioButton44.UseVisualStyleBackColor = true;
+            // 
+            // radioButton45
+            // 
+            this.radioButton45.AutoSize = true;
+            this.radioButton45.Location = new System.Drawing.Point(5, 123);
+            this.radioButton45.Name = "radioButton45";
+            this.radioButton45.Size = new System.Drawing.Size(82, 17);
+            this.radioButton45.TabIndex = 26;
+            this.radioButton45.Text = "Проективні";
+            this.radioButton45.UseVisualStyleBackColor = true;
+            // 
+            // textBox45
+            // 
+            this.textBox45.Location = new System.Drawing.Point(40, 83);
+            this.textBox45.Name = "textBox45";
+            this.textBox45.Size = new System.Drawing.Size(164, 20);
+            this.textBox45.TabIndex = 24;
+            // 
+            // textBox44
+            // 
+            this.textBox44.Location = new System.Drawing.Point(40, 56);
+            this.textBox44.Name = "textBox44";
+            this.textBox44.Size = new System.Drawing.Size(164, 20);
+            this.textBox44.TabIndex = 23;
+            // 
+            // textBox43
+            // 
+            this.textBox43.Location = new System.Drawing.Point(40, 30);
+            this.textBox43.Name = "textBox43";
+            this.textBox43.Size = new System.Drawing.Size(164, 20);
+            this.textBox43.TabIndex = 22;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(10, 86);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(24, 13);
+            this.label59.TabIndex = 21;
+            this.label59.Text = "z = ";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(11, 59);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(24, 13);
+            this.label58.TabIndex = 20;
+            this.label58.Text = "y = ";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(11, 33);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(24, 13);
+            this.label57.TabIndex = 19;
+            this.label57.Text = "x = ";
             // 
             // groupBox9
             // 
@@ -2416,12 +2566,14 @@
             this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView6.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7});
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn10});
             this.dataGridView6.Location = new System.Drawing.Point(241, 272);
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.ReadOnly = true;
             this.dataGridView6.Size = new System.Drawing.Size(535, 153);
             this.dataGridView6.TabIndex = 39;
+            this.dataGridView6.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.RowHeaderMouse_Click);
             // 
             // dataGridViewTextBoxColumn6
             // 
@@ -2435,6 +2587,12 @@
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Z";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            // 
             // dataGridView5
             // 
             this.dataGridView5.AllowUserToDeleteRows = false;
@@ -2442,12 +2600,14 @@
             this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView5.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
-            this.dataGridView5.Location = new System.Drawing.Point(241, 23);
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn9});
+            this.dataGridView5.Location = new System.Drawing.Point(241, 25);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.ReadOnly = true;
             this.dataGridView5.Size = new System.Drawing.Size(535, 212);
             this.dataGridView5.TabIndex = 38;
+            this.dataGridView5.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.RowHeaderMouse_Click);
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -2460,6 +2620,12 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "Y";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Z";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
             // groupBox3
             // 
@@ -2555,104 +2721,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // groupBox15
-            // 
-            this.groupBox15.Controls.Add(this.radioButton44);
-            this.groupBox15.Controls.Add(this.radioButton45);
-            this.groupBox15.Controls.Add(this.radioButton46);
-            this.groupBox15.Controls.Add(this.textBox45);
-            this.groupBox15.Controls.Add(this.textBox44);
-            this.groupBox15.Controls.Add(this.textBox43);
-            this.groupBox15.Controls.Add(this.label59);
-            this.groupBox15.Controls.Add(this.label58);
-            this.groupBox15.Controls.Add(this.label57);
-            this.groupBox15.Location = new System.Drawing.Point(15, 445);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(220, 179);
-            this.groupBox15.TabIndex = 44;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Точка";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(11, 33);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(24, 13);
-            this.label57.TabIndex = 19;
-            this.label57.Text = "x = ";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(11, 59);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(24, 13);
-            this.label58.TabIndex = 20;
-            this.label58.Text = "y = ";
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(10, 86);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(24, 13);
-            this.label59.TabIndex = 21;
-            this.label59.Text = "z = ";
-            // 
-            // textBox43
-            // 
-            this.textBox43.Location = new System.Drawing.Point(40, 30);
-            this.textBox43.Name = "textBox43";
-            this.textBox43.Size = new System.Drawing.Size(164, 20);
-            this.textBox43.TabIndex = 22;
-            // 
-            // textBox44
-            // 
-            this.textBox44.Location = new System.Drawing.Point(40, 56);
-            this.textBox44.Name = "textBox44";
-            this.textBox44.Size = new System.Drawing.Size(164, 20);
-            this.textBox44.TabIndex = 23;
-            // 
-            // textBox45
-            // 
-            this.textBox45.Location = new System.Drawing.Point(40, 83);
-            this.textBox45.Name = "textBox45";
-            this.textBox45.Size = new System.Drawing.Size(164, 20);
-            this.textBox45.TabIndex = 24;
-            // 
-            // radioButton44
-            // 
-            this.radioButton44.AutoSize = true;
-            this.radioButton44.Location = new System.Drawing.Point(14, 146);
-            this.radioButton44.Name = "radioButton44";
-            this.radioButton44.Size = new System.Drawing.Size(53, 17);
-            this.radioButton44.TabIndex = 27;
-            this.radioButton44.Text = "Якобі";
-            this.radioButton44.UseVisualStyleBackColor = true;
-            // 
-            // radioButton45
-            // 
-            this.radioButton45.AutoSize = true;
-            this.radioButton45.Location = new System.Drawing.Point(76, 123);
-            this.radioButton45.Name = "radioButton45";
-            this.radioButton45.Size = new System.Drawing.Size(82, 17);
-            this.radioButton45.TabIndex = 26;
-            this.radioButton45.Text = "Проективні";
-            this.radioButton45.UseVisualStyleBackColor = true;
-            // 
-            // radioButton46
-            // 
-            this.radioButton46.AutoSize = true;
-            this.radioButton46.Checked = true;
-            this.radioButton46.Location = new System.Drawing.Point(14, 123);
-            this.radioButton46.Name = "radioButton46";
-            this.radioButton46.Size = new System.Drawing.Size(56, 17);
-            this.radioButton46.TabIndex = 25;
-            this.radioButton46.TabStop = true;
-            this.radioButton46.Text = "Афінні";
-            this.radioButton46.UseVisualStyleBackColor = true;
-            // 
             // ECC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2692,6 +2760,9 @@
             this.groupBox2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
@@ -2701,8 +2772,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2803,9 +2872,11 @@
         private System.Windows.Forms.DataGridView dataGridView6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridView dataGridView5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -2933,12 +3004,17 @@
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.RadioButton radioButton44;
         private System.Windows.Forms.RadioButton radioButton45;
-        private System.Windows.Forms.RadioButton radioButton46;
         private System.Windows.Forms.TextBox textBox45;
         private System.Windows.Forms.TextBox textBox44;
         private System.Windows.Forms.TextBox textBox43;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Button ToAffineButton;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.DataGridView dataGridView7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
     }
 }
