@@ -52,7 +52,7 @@ namespace EllipticCurveCryptography
                 y2 = y2 + p;
 
             BigInteger d, inv;
-            if (z1 == 0)
+            if (x1 == 0 && y1 == 1 && z1 == 0)
             {
                 x3 = x2 % p;
                 y3 = y2 % p;
@@ -60,11 +60,11 @@ namespace EllipticCurveCryptography
             }
             else
             {
-                if (z2 == 0)
+                if (x2 == 0 && y2 == 1 && z2 == 0)
                 {
                     x3 = x1 % p;
                     y3 = y1 % p;
-                    z3 = z1;
+                    z3 = z1 % p;
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace EllipticCurveCryptography
             out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             /*Tetiana Drozda*/
-            if (x1 == 0 && y1 == 1 && z1 == 0)
+           /* if (x1 == 0 && y1 == 1 && z1 == 0)
             {
                 x3 = x2;
                 y3 = y2;
@@ -139,9 +139,9 @@ namespace EllipticCurveCryptography
                         z3 = 0;
                     }
                 }
-            }
+            }*/
 
-           /* if (x1 == 0 && y1 == 1 && z1 == 0)
+            if (x1 == 0 && y1 == 1 && z1 == 0)
             {
                 x3 = x2;
                 y3 = y2;
@@ -189,7 +189,7 @@ namespace EllipticCurveCryptography
                         if (z3 < 0) z3 += p;
                     }
                 }
-            }*/
+            }
            /* Olha
            if (x1 == 0 && y1 == 1 && z1 == 0)
            {
@@ -274,42 +274,72 @@ namespace EllipticCurveCryptography
             out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             BigInteger r, s, t, u, v, w;
+            if (x1 == 0 && y1 == 1 && z1 == 0)
+            {
+                x3 = x2;
+                y3 = y2;
+                z3 = z2;
+            }
+            else
+            {
+                if (x2 == 0 && y2 == 1 && z2 == 0)
+                {
+                    x3 = x1;
+                    y3 = y1;
+                    z3 = z1;
+                }
+                else
+                {
+                    if ((x1 * Functions.Pow(z2, 2)) % p < 0)
+                        r = (x1 * Functions.Pow(z2, 2)) % p + p;
+                    else r = (x1 * Functions.Pow(z2, 2)) % p;
 
-            if ((x1 * Functions.Pow(z2, 2)) % p < 0)
-                r = (x1 * Functions.Pow(z2, 2)) % p + p;
-            else r = (x1 * Functions.Pow(z2, 2)) % p;
+                    if ((x2 * Functions.Pow(z1, 2)) % p < 0)
+                        s = (x2 * Functions.Pow(z1, 2)) % p + p;
+                    else s = (x2 * Functions.Pow(z1, 2)) % p;
 
-            if ((x2 * Functions.Pow(z1, 2)) % p < 0)
-                s = (x2 * Functions.Pow(z1, 2)) % p + p;
-            else s = (x2 * Functions.Pow(z1, 2)) % p;
+                    if ((y1 * Functions.Pow(z2, 3)) % p < 0)
+                        t = (y1 * Functions.Pow(z2, 3)) % p + p;
+                    else t = (y1 * Functions.Pow(z2, 3)) % p;
 
-            if ((y1 * Functions.Pow(z2, 3)) % p < 0)
-                t = (y1 * Functions.Pow(z2, 3)) % p + p;
-            else t = (y1 * Functions.Pow(z2, 3)) % p;
+                    if ((y2 * Functions.Pow(z1, 3)) % p < 0)
+                        u = (y2 * Functions.Pow(z1, 3)) % p + p;
+                    else u = (y2 * Functions.Pow(z1, 3)) % p;
+                    if (r == s)
+                    {
+                        if (t != u)
+                        {
+                            x3 = 0;
+                            y3 = 1;
+                            z3 = 0;
+                        }
+                        else
+                            Double_Jacoby_Coord(x1, y1, z1, a, p, out x3, out y3, out z3);
+                    }
+                    else
+                    {
+                        if ((s - r) % p < 0)
+                            v = (s - r) % p + p;
+                        else v = (s - r) % p;
 
-            if ((y2 * Functions.Pow(z1, 3)) % p < 0)
-                u = (y2 * Functions.Pow(z1, 3)) % p + p;
-            else u = (y2 * Functions.Pow(z1, 3)) % p;
+                        if ((u - t) % p < 0)
+                            w = (u - t) % p + p;
+                        else w = (u - t) % p;
 
-            if ((s - r) % p < 0)
-                v = (s - r) % p + p;
-            else v = (s - r) % p;
+                        if ((-(Functions.Pow(v, 3)) - 2 * r * Functions.Pow(v, 2) + Functions.Pow(w, 2)) % p < 0)
+                            x3 = (-(Functions.Pow(v, 3)) - 2 * r * Functions.Pow(v, 2) + Functions.Pow(w, 2)) % p + p;
+                        else x3 = (-(Functions.Pow(v, 3)) - 2 * r * Functions.Pow(v, 2) + Functions.Pow(w, 2)) % p;
 
-            if ((u - t) % p < 0)
-                w = (u - t) % p + p;
-            else w = (u - t) % p;
+                        if ((-t * Functions.Pow(v, 3) + (r * Functions.Pow(v, 2) - x3) * w) % p < 0)
+                            y3 = (-t * Functions.Pow(v, 3) + (r * Functions.Pow(v, 2) - x3) * w) % p + p;
+                        else y3 = (-t * Functions.Pow(v, 3) + (r * Functions.Pow(v, 2) - x3) * w) % p;
 
-            if ((-(Functions.Pow(v, 3)) - 2 * r * Functions.Pow(v, 2) + Functions.Pow(w, 2)) % p < 0)
-                x3 = (-(Functions.Pow(v, 3)) - 2 * r * Functions.Pow(v, 2) + Functions.Pow(w, 2)) % p + p;
-            else x3 = (-(Functions.Pow(v, 3)) - 2 * r * Functions.Pow(v, 2) + Functions.Pow(w, 2)) % p;
-
-            if ((-t * Functions.Pow(v, 3) + (r * Functions.Pow(v, 2) - x3) * w) % p < 0)
-                y3 = (-t * Functions.Pow(v, 3) + (r * Functions.Pow(v, 2) - x3) * w) % p + p;
-            else y3 = (-t * Functions.Pow(v, 3) + (r * Functions.Pow(v, 2) - x3) * w) % p;
-
-            if ((v * z1 * z2) % p < 0)
-                z3 = (v * z1 * z2) % p + p;
-            else z3 = (v * z1 * z2) % p;
+                        if ((v * z1 * z2) % p < 0)
+                            z3 = (v * z1 * z2) % p + p;
+                        else z3 = (v * z1 * z2) % p;
+                    }
+                }
+            }
         }
         #endregion
 
@@ -380,7 +410,6 @@ namespace EllipticCurveCryptography
             out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             BigInteger v, w;
-
             if ((4 * x1 * Functions.Pow(y1, 2)) % p < 0)
                 v = (4 * x1 * Functions.Pow(y1, 2)) % p + p;
             else v = (4 * x1 * Functions.Pow(y1, 2)) % p;
@@ -400,6 +429,12 @@ namespace EllipticCurveCryptography
             if ((2 * y1 * z1) % p < 0)
                 z3 = (2 * y1 * z1) % p + p;
             else z3 = (2 * y1 * z1) % p;
+            if (y3 == 0)
+            {
+                x3 = 0;
+                y3 = 1;
+                z3 = 0;
+            }
         }
         #endregion
 
@@ -2052,7 +2087,8 @@ namespace EllipticCurveCryptography
             time = ts.TotalMilliseconds;
         }
 
-        /*Tania Drozda*/
+        #region MBNS methods with trees
+        /*Do not work correct*/
         public static void Point_Multiplication_Affine_Coord_27(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger k, BigInteger p,
             out BigInteger x2, out BigInteger y2, out BigInteger z2, BigInteger B, BigInteger[] S, BigInteger[] M, int type, out double time)
         {
@@ -2145,6 +2181,7 @@ namespace EllipticCurveCryptography
             TimeSpan ts = stopWatch.Elapsed;
             time = ts.TotalMilliseconds;
         }
+        #endregion
         public static void Point_Multiplication_Affine_Coord_29(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger k, BigInteger p,
            out BigInteger x2, out BigInteger y2, out BigInteger z2, out double time, int type)
         {
@@ -2210,7 +2247,6 @@ namespace EllipticCurveCryptography
             TimeSpan ts = stopWatch.Elapsed;
             time = ts.TotalMilliseconds; 
         }
-
         public static void Point_Multiplication_Affine_Coord_30(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger k, BigInteger p,
            out BigInteger x2, out BigInteger y2, out BigInteger z2, out double time, int type)
         {
