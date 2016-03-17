@@ -3828,7 +3828,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             BigInteger b = BigInteger.Parse(textBox3.Text);
             int from = int.Parse(textBox48.Text);
             int to = int.Parse(textBox47.Text);
-            int tmp = Functions.rand(from, to);
+            int tmp = Functions.rand(from, to); 
             BigInteger p = Functions.random_max(tmp);
             int quantity = int.Parse(textBox46.Text);
             List<BigInteger[]> pointsList = new List<BigInteger[]>();
