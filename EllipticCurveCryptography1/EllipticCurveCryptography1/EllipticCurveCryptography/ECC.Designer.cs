@@ -265,6 +265,30 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Double = new System.Windows.Forms.Button();
             this.Add = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label65 = new System.Windows.Forms.Label();
+            this.dataGridView8 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.textBox49 = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.textBox50 = new System.Windows.Forms.TextBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.textBox51 = new System.Windows.Forms.TextBox();
+            this.testingButton = new System.Windows.Forms.Button();
+            this.radioButton46 = new System.Windows.Forms.RadioButton();
+            this.radioButton47 = new System.Windows.Forms.RadioButton();
+            this.textBox46 = new System.Windows.Forms.TextBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label63 = new System.Windows.Forms.Label();
+            this.textBox47 = new System.Windows.Forms.TextBox();
+            this.textBox48 = new System.Windows.Forms.TextBox();
+            this.label64 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -292,6 +316,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
+            this.groupBox16.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -299,6 +326,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(4, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -2249,9 +2277,9 @@
             this.label60.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label60.Location = new System.Drawing.Point(247, 438);
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(59, 13);
+            this.label60.Size = new System.Drawing.Size(128, 13);
             this.label60.TabIndex = 46;
-            this.label60.Text = "Результат";
+            this.label60.Text = "Результат переведення";
             this.label60.Click += new System.EventHandler(this.label60_Click);
             // 
             // dataGridView7
@@ -2545,9 +2573,9 @@
             this.label22.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label22.Location = new System.Drawing.Point(247, 251);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(59, 13);
+            this.label22.Size = new System.Drawing.Size(106, 13);
             this.label22.TabIndex = 41;
-            this.label22.Text = "Результат";
+            this.label22.Text = "Результат операцій";
             // 
             // label21
             // 
@@ -2717,6 +2745,239 @@
             this.Add.UseVisualStyleBackColor = true;
             this.Add.Click += new System.EventHandler(this.Add_Click);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label65);
+            this.tabPage4.Controls.Add(this.dataGridView8);
+            this.tabPage4.Controls.Add(this.groupBox16);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1037, 707);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Тестування";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label65.Location = new System.Drawing.Point(310, 8);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(84, 13);
+            this.label65.TabIndex = 42;
+            this.label65.Text = "Точки помилок";
+            // 
+            // dataGridView8
+            // 
+            this.dataGridView8.AllowUserToDeleteRows = false;
+            this.dataGridView8.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView8.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn14,
+            this.dataGridViewTextBoxColumn15,
+            this.dataGridViewTextBoxColumn16});
+            this.dataGridView8.Location = new System.Drawing.Point(304, 26);
+            this.dataGridView8.Name = "dataGridView8";
+            this.dataGridView8.ReadOnly = true;
+            this.dataGridView8.Size = new System.Drawing.Size(535, 212);
+            this.dataGridView8.TabIndex = 41;
+            this.dataGridView8.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView8_CellContentClick);
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.HeaderText = "X";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.HeaderText = "Y";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.HeaderText = "Z";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.ReadOnly = true;
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.textBox49);
+            this.groupBox16.Controls.Add(this.label66);
+            this.groupBox16.Controls.Add(this.label67);
+            this.groupBox16.Controls.Add(this.label68);
+            this.groupBox16.Controls.Add(this.textBox50);
+            this.groupBox16.Controls.Add(this.label69);
+            this.groupBox16.Controls.Add(this.textBox51);
+            this.groupBox16.Controls.Add(this.testingButton);
+            this.groupBox16.Controls.Add(this.radioButton46);
+            this.groupBox16.Controls.Add(this.radioButton47);
+            this.groupBox16.Controls.Add(this.textBox46);
+            this.groupBox16.Controls.Add(this.label61);
+            this.groupBox16.Controls.Add(this.label62);
+            this.groupBox16.Controls.Add(this.label63);
+            this.groupBox16.Controls.Add(this.textBox47);
+            this.groupBox16.Controls.Add(this.textBox48);
+            this.groupBox16.Controls.Add(this.label64);
+            this.groupBox16.Location = new System.Drawing.Point(24, 26);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(253, 325);
+            this.groupBox16.TabIndex = 0;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Методика тестування";
+            // 
+            // textBox49
+            // 
+            this.textBox49.Location = new System.Drawing.Point(95, 165);
+            this.textBox49.Name = "textBox49";
+            this.textBox49.Size = new System.Drawing.Size(57, 20);
+            this.textBox49.TabIndex = 56;
+            this.textBox49.Text = "100";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(17, 168);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(72, 13);
+            this.label66.TabIndex = 55;
+            this.label66.Text = "Крок зміни k";
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(16, 123);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(94, 13);
+            this.label67.TabIndex = 54;
+            this.label67.Text = "Діапазон зміни k";
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(117, 142);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(19, 13);
+            this.label68.TabIndex = 53;
+            this.label68.Text = "до";
+            // 
+            // textBox50
+            // 
+            this.textBox50.Location = new System.Drawing.Point(144, 139);
+            this.textBox50.Name = "textBox50";
+            this.textBox50.Size = new System.Drawing.Size(57, 20);
+            this.textBox50.TabIndex = 52;
+            this.textBox50.Text = "1000";
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(17, 142);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(21, 13);
+            this.label69.TabIndex = 51;
+            this.label69.Text = "від";
+            // 
+            // textBox51
+            // 
+            this.textBox51.Location = new System.Drawing.Point(50, 139);
+            this.textBox51.Name = "textBox51";
+            this.textBox51.Size = new System.Drawing.Size(60, 20);
+            this.textBox51.TabIndex = 50;
+            this.textBox51.Text = "10";
+            // 
+            // testingButton
+            // 
+            this.testingButton.Location = new System.Drawing.Point(61, 260);
+            this.testingButton.Name = "testingButton";
+            this.testingButton.Size = new System.Drawing.Size(99, 37);
+            this.testingButton.TabIndex = 49;
+            this.testingButton.Text = "Перевірити множення";
+            this.testingButton.UseVisualStyleBackColor = true;
+            this.testingButton.Click += new System.EventHandler(this.testingButton_Click);
+            // 
+            // radioButton46
+            // 
+            this.radioButton46.AutoSize = true;
+            this.radioButton46.Location = new System.Drawing.Point(107, 215);
+            this.radioButton46.Name = "radioButton46";
+            this.radioButton46.Size = new System.Drawing.Size(53, 17);
+            this.radioButton46.TabIndex = 48;
+            this.radioButton46.Text = "Якобі";
+            this.radioButton46.UseVisualStyleBackColor = true;
+            // 
+            // radioButton47
+            // 
+            this.radioButton47.AutoSize = true;
+            this.radioButton47.Location = new System.Drawing.Point(19, 215);
+            this.radioButton47.Name = "radioButton47";
+            this.radioButton47.Size = new System.Drawing.Size(82, 17);
+            this.radioButton47.TabIndex = 47;
+            this.radioButton47.Text = "Проективні";
+            this.radioButton47.UseVisualStyleBackColor = true;
+            // 
+            // textBox46
+            // 
+            this.textBox46.Location = new System.Drawing.Point(107, 83);
+            this.textBox46.Name = "textBox46";
+            this.textBox46.Size = new System.Drawing.Size(72, 20);
+            this.textBox46.TabIndex = 46;
+            this.textBox46.Text = "30";
+            this.textBox46.TextChanged += new System.EventHandler(this.textBox46_TextChanged);
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(17, 86);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(93, 13);
+            this.label61.TabIndex = 45;
+            this.label61.Text = "Кількість точок =";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(117, 48);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(19, 13);
+            this.label62.TabIndex = 44;
+            this.label62.Text = "до";
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(16, 48);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(21, 13);
+            this.label63.TabIndex = 43;
+            this.label63.Text = "від";
+            // 
+            // textBox47
+            // 
+            this.textBox47.Location = new System.Drawing.Point(144, 45);
+            this.textBox47.Name = "textBox47";
+            this.textBox47.Size = new System.Drawing.Size(72, 20);
+            this.textBox47.TabIndex = 42;
+            this.textBox47.Text = "16";
+            // 
+            // textBox48
+            // 
+            this.textBox48.Location = new System.Drawing.Point(38, 45);
+            this.textBox48.Name = "textBox48";
+            this.textBox48.Size = new System.Drawing.Size(72, 20);
+            this.textBox48.TabIndex = 41;
+            this.textBox48.Text = "8";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(16, 25);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(126, 13);
+            this.label64.TabIndex = 40;
+            this.label64.Text = "Довжина модуля (байт)";
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -2772,6 +3033,11 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3016,5 +3282,29 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.TextBox textBox46;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.TextBox textBox47;
+        private System.Windows.Forms.TextBox textBox48;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.DataGridView dataGridView8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.Button testingButton;
+        private System.Windows.Forms.RadioButton radioButton46;
+        private System.Windows.Forms.RadioButton radioButton47;
+        private System.Windows.Forms.TextBox textBox49;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.TextBox textBox50;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.TextBox textBox51;
     }
 }

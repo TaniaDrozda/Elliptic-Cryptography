@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Numerics;
 using System.IO;
 using System.Diagnostics;
-
+using System.Collections;
 
 namespace EllipticCurveCryptography
 {
@@ -542,12 +542,9 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         {
             BigInteger modulo;
             Boolean result = true;
-
             dataGridView3.Visible = true;
             dataGridView2.Visible = false;
-
             dataGridView3.RowCount = 1;
-
             int j = 0;
             while (!dataGridView3.Rows[j].IsNewRow && dataGridView3.Rows[j] != null)
             {
@@ -582,13 +579,10 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     }
                 }
                 while (result == false);
-
                 dataGridView3.Rows.Add();
                 dataGridView3.Rows[i].Cells[0].Value = modulo;
             }
         }
-
-
         private void downloadPointsFromFile_Click(object sender, EventArgs e)
         {
             int quantity = int.Parse(textBox10.Text);
@@ -752,44 +746,34 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
 
             }
         }
-
-
         //ne pravilno rabotaet
         private void writeTimeInFile_Click(object sender, EventArgs e)
         {
             BigInteger p, x2, y2, z2, a, a_max, b_max;
             int quantity = int.Parse(textBox14.Text);
-
             int w = int.Parse(textBox5.Text);
             a_max = BigInteger.Parse(textBox27.Text);
             b_max = BigInteger.Parse(textBox28.Text);
             int count = 0;
-
             BigInteger step = 0, max_k = 0, k;
-            List<BigInteger> mass_k = new List<BigInteger>();
-
+            List<BigInteger> mass_k = new List<BigInteger>();          
             BigInteger[] S;
             BigInteger[] M;
             BigInteger B;
-
             B = BigInteger.Parse(textBox26.Text);
             S = writeToArray(textBox29);
             M = writeToArray(textBox30);
-
             if (radioButton17.Checked)
             {
                 step = BigInteger.Parse(textBox13.Text);
                 max_k = BigInteger.Parse(textBox12.Text);
                 k = BigInteger.Parse(textBox11.Text);
-
                 while (k <= max_k)
                 {
                     mass_k.Add(k);
                     k += step;
-
                 }
             }
-
             if (radioButton18.Checked)
             {
                 max_k = BigInteger.Parse(textBox19.Text);
@@ -801,8 +785,6 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     mass_k.Add(Functions.rand(left, right));
                 }
             }
-
-
             if (radioButton19.Checked)
             {
                 max_k = BigInteger.Parse(textBox22.Text);
@@ -815,7 +797,6 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     mass_k.Add(Functions.random_max(rand));
                 }
             }
-
             BigInteger[,] points = new BigInteger[quantity, 3];
             double[] time_average;
             if (radioButton17.Checked)
@@ -827,92 +808,86 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 time_average = new double[mass_k.Count]; //14 - kol-vo algoritmov realizovanih
             }
             double time = 0, time1 = 0;
-
             points = EllipticCC.ReadFromFile(quantity, out a, out p);
-
             int p_bits = Functions.ToBin(p).Length;
-
-            openFileDialog1.Filter = "txt файли(*.txt)|*.txt";
-            if (radioButton1.Checked == true)
+            openFileDialog1.Filter = "txt файли(*.txt)|*.txt";          
+            if (radioButton1.Checked )
                 openFileDialog1.FileName = "#1_Time_" + p_bits + ".txt";
-            else if (radioButton2.Checked == true)
+            else if (radioButton2.Checked )
                 openFileDialog1.FileName = "#2_Time_" + p_bits + ".txt";
-            else if (radioButton3.Checked == true)
+            else if (radioButton3.Checked )
                 openFileDialog1.FileName = "#3_Time_" + p_bits + ".txt";
-            else if (radioButton4.Checked == true)
+            else if (radioButton4.Checked )
                 openFileDialog1.FileName = "#4_Time_" + p_bits + ".txt";
-            else if (radioButton5.Checked == true)
+            else if (radioButton5.Checked )
                 openFileDialog1.FileName = "#5_Time_" + p_bits + ".txt";
-            else if (radioButton6.Checked == true)
+            else if (radioButton6.Checked )
                 openFileDialog1.FileName = "#6_Time_" + p_bits + ".txt";
-            else if (radioButton7.Checked == true)
+            else if (radioButton7.Checked )
                 openFileDialog1.FileName = "#7_1_Time_" + p_bits + ".txt";
-            else if (radioButton8.Checked == true)
+            else if (radioButton8.Checked )
                 openFileDialog1.FileName = "#7_2_Time_" + p_bits + ".txt";
-            else if (radioButton9.Checked == true)
+            else if (radioButton9.Checked )
                 openFileDialog1.FileName = "#8_Time_" + p_bits + ".txt";
-            else if (radioButton10.Checked == true)
+            else if (radioButton10.Checked )
                 openFileDialog1.FileName = "#9_Time_" + p_bits + ".txt";
-            else if (radioButton11.Checked == true)
+            else if (radioButton11.Checked )
                 openFileDialog1.FileName = "#10_Time_" + p_bits + ".txt";
-            else if (radioButton12.Checked == true)
+            else if (radioButton12.Checked )
                 openFileDialog1.FileName = "#11_1_Time_" + p_bits + ".txt";
-            else if (radioButton20.Checked == true)
+            else if (radioButton20.Checked )
                 openFileDialog1.FileName = "#11_2_Time_" + p_bits + ".txt";
-            else if (radioButton13.Checked == true)
+            else if (radioButton13.Checked )
                 openFileDialog1.FileName = "#15_Time_" + p_bits + ".txt";
-            else if (radioButton14.Checked == true)
+            else if (radioButton14.Checked )
                 openFileDialog1.FileName = "#12_Time_" + p_bits + ".txt";
-            else if (radioButton21.Checked == true)
+            else if (radioButton21.Checked )
                 openFileDialog1.FileName = "#13_Time_" + p_bits + ".txt";
-            else if (radioButton22.Checked == true)
+            else if (radioButton22.Checked )
                 openFileDialog1.FileName = "#14_Time_" + p_bits + ".txt";
-            else if (radioButton23.Checked == true)
+            else if (radioButton23.Checked )
                 openFileDialog1.FileName = "#16_Time_" + p_bits + ".txt";
-            else if (radioButton24.Checked == true)
+            else if (radioButton24.Checked )
                 openFileDialog1.FileName = "#17_Time_" + p_bits + ".txt";
-            else if (radioButton25.Checked == true)
+            else if (radioButton25.Checked )
                 openFileDialog1.FileName = "#18_Time_" + p_bits + ".txt";
-            else if (radioButton26.Checked == true)
+            else if (radioButton26.Checked )
                 openFileDialog1.FileName = "#19_1_Time_" + p_bits + ".txt";
-            else if (radioButton15.Checked == true)
+            else if (radioButton15.Checked )
                 openFileDialog1.FileName = "#19_2_Time_" + p_bits + ".txt";
-            else if (radioButton16.Checked == true)
+            else if (radioButton16.Checked )
                 openFileDialog1.FileName = "#20_1_Time_" + p_bits + ".txt";
-            else if (radioButton27.Checked == true)
+            else if (radioButton27.Checked )
                 openFileDialog1.FileName = "#20_2_Time_" + p_bits + ".txt";
-            else if (radioButton28.Checked == true)
+            else if (radioButton28.Checked )
                 openFileDialog1.FileName = "#21_Time_" + p_bits + ".txt";
-            else if (radioButton29.Checked == true)
+            else if (radioButton29.Checked )
                 openFileDialog1.FileName = "#22_Time_" + p_bits + ".txt";
-            else if (radioButton35.Checked == true)
+            else if (radioButton35.Checked )
                 openFileDialog1.FileName = "#27_Time_" + p_bits + ".txt";
-            else if (radioButton36.Checked == true)
+            else if (radioButton36.Checked )
                 openFileDialog1.FileName = "#28_Time_" + p_bits + ".txt";
-            else if (radioButton33.Checked == true)
+            else if (radioButton33.Checked )
                 openFileDialog1.FileName = "#29_Time_" + p_bits + ".txt";
-            else if (radioButton34.Checked == true)
+            else if (radioButton34.Checked )
                 openFileDialog1.FileName = "#30_Time_" + p_bits + ".txt";
-            else if (radioButton37.Checked == true)
+            else if (radioButton37.Checked )
                 openFileDialog1.FileName = "#31_Time_" + p_bits + ".txt";
-
             string filename = openFileDialog1.FileName;
             FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
-
             int type = 0;
-
-            if (radioButton30.Checked == true)
+            if (radioButton30.Checked )
             {
                 type = 0;
                 sw.WriteLine("Афінні координати");
             }
-            else if (radioButton31.Checked == true)
+            else if (radioButton31.Checked )
             {
                 type = 1;
                 sw.WriteLine("Проективні координати");
             }
-            else if (radioButton32.Checked == true)
+            else if (radioButton32.Checked )
             {
                 type = 0;
                 sw.WriteLine("Координати Якобі");
@@ -923,7 +898,6 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 sw.WriteLine("Афінні координати");
             }
 
-
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel) { sw.Close(); }
             else
             {
@@ -933,68 +907,68 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     for (int i = 0; i < quantity; i++)
                     {
                         time = 0;
-                        stopWatch.Start();
-                        if (radioButton1.Checked == true)
+                        stopWatch.Start();             
+                        if (radioButton1.Checked)
                             Point_Multiplication_Affine_Coord_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, type);
-                        else if (radioButton2.Checked == true)
+                        else if (radioButton2.Checked)
                             Point_Multiplication_Affine_Coord_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, type);
-                        else if (radioButton3.Checked == true)
+                        else if (radioButton3.Checked)
                             Point_Multiplication_Affine_Coord_3(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton4.Checked == true)
+                        else if (radioButton4.Checked)
                             Point_Multiplication_Affine_Coord_4(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton5.Checked == true)
+                        else if (radioButton5.Checked)
                             Point_Multiplication_Affine_Coord_5(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton6.Checked == true)
+                        else if (radioButton6.Checked)
                             Point_Multiplication_Affine_Coord_6(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton7.Checked == true)
+                        else if (radioButton7.Checked)
                             Point_Multiplication_Affine_Coord_7_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
-                        else if (radioButton8.Checked == true)
+                        else if (radioButton8.Checked)
                             Point_Multiplication_Affine_Coord_7_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
-                        else if (radioButton9.Checked == true)
+                        else if (radioButton9.Checked )
                             Point_Multiplication_Affine_Coord_8(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
-                        else if (radioButton10.Checked == true)
+                        else if (radioButton10.Checked )
                             Point_Multiplication_Affine_Coord_9(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton11.Checked == true)
+                        else if (radioButton11.Checked )
                             Point_Multiplication_Affine_Coord_10(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton12.Checked == true)
+                        else if (radioButton12.Checked)
                             Point_Multiplication_Affine_Coord_11_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton20.Checked == true)
+                        else if (radioButton20.Checked)
                             Point_Multiplication_Affine_Coord_11_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton14.Checked == true)
+                        else if (radioButton14.Checked)
                             Point_Multiplication_Affine_Coord_12(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton21.Checked == true)
+                        else if (radioButton21.Checked)
                             Point_Multiplication_Affine_Coord_13(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton22.Checked == true)
+                        else if (radioButton22.Checked)
                             Point_Multiplication_Affine_Coord_14(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton13.Checked == true)
+                        else if (radioButton13.Checked)
                             Point_Multiplication_Affine_Coord_15(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton23.Checked == true)
+                        else if (radioButton23.Checked)
                             Point_Multiplication_Affine_Coord_16(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton24.Checked == true)
+                        else if (radioButton24.Checked)
                             Point_Multiplication_Affine_Coord_17(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton25.Checked == true)
+                        else if (radioButton25.Checked)
                             Point_Multiplication_Affine_Coord_18(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton26.Checked == true)
+                        else if (radioButton26.Checked)
                             Point_Multiplication_Affine_Coord_19(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                        else if (radioButton15.Checked == true)
+                        else if (radioButton15.Checked)
                             Point_Multiplication_Affine_Coord_19_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                        else if (radioButton16.Checked == true)
+                        else if (radioButton16.Checked)
                             Point_Multiplication_Affine_Coord_20_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                        else if (radioButton27.Checked == true)
+                        else if (radioButton27.Checked)
                             Point_Multiplication_Affine_Coord_20(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                        else if (radioButton28.Checked == true)
+                        else if (radioButton28.Checked)
                             Point_Multiplication_Affine_Coord_21(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton29.Checked == true)
+                        else if (radioButton29.Checked)
                             Point_Multiplication_Affine_Coord_22(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton35.Checked == true)
+                        else if (radioButton35.Checked)
                             Point_Multiplication_Affine_Coord_27(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, B, S, M, type, out time);
-                        else if (radioButton36.Checked == true)
+                        else if (radioButton36.Checked)
                             Point_Multiplication_Affine_Coord_28(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, B, S, M, type, out time);
-                        else if (radioButton33.Checked == true)
+                        else if (radioButton33.Checked)
                             Point_Multiplication_Affine_Coord_29(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton34.Checked == true)
+                        else if (radioButton34.Checked)
                             Point_Multiplication_Affine_Coord_30(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton37.Checked == true)
+                        else if (radioButton37.Checked)
                             Point_Multiplication_Affine_Coord_31(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
                         stopWatch.Stop();
                         TimeSpan ts = stopWatch.Elapsed;
@@ -1004,9 +978,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     else time_average[count] = time / quantity;
                     sw.WriteLine(time_average[count]);
                     count++;
-
                 }
-
                 double sumTime = 0;
                 for (int j = 0; j < time_average.Length; j++)
                 {
@@ -1105,17 +1077,17 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
 
             int type = 0;
 
-            if (radioButton30.Checked == true)
+            if (radioButton30.Checked)
             {
                 type = 0;
                 sw.WriteLine("Афінні координати");
             }
-            else if (radioButton31.Checked == true)
+            else if (radioButton31.Checked)
             {
                 type = 1;
                 sw.WriteLine("Проективні координати");
             }
-            else if (radioButton32.Checked == true)
+            else if (radioButton32.Checked)
             {
                 type = 0;
                 sw.WriteLine("Координати Якобі");
@@ -1423,15 +1395,15 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
 
             int type = 0;
 
-            if (radioButton30.Checked == true)
+            if (radioButton30.Checked)
             {
                 type = 0;
             }
-            else if (radioButton31.Checked == true)
+            else if (radioButton31.Checked)
             {
                 type = 1;
             }
-            else if (radioButton32.Checked == true)
+            else if (radioButton32.Checked)
             {
                 type = 2;
             }
@@ -2877,9 +2849,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 {
                     dataGridView4.Rows[s].Cells[0].Value = numOfAlg[s];
                 }
-
             }
-
         }
 
         private void groupBox11_Enter(object sender, EventArgs e)
@@ -2890,11 +2860,11 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         private void TestB_Click(object sender, EventArgs e)
         {
             int type = 0;
-            if (radioButton30.Checked == true)
+            if (radioButton30.Checked)
                 type = 0;
-            else if (radioButton31.Checked == true)
+            else if (radioButton31.Checked)
                 type = 1;
-            else if (radioButton32.Checked == true)
+            else if (radioButton32.Checked)
                 type = 2;
             BigInteger p, x2, y2, z2, a;
             int quantity = int.Parse(textBox14.Text), num;
@@ -3109,11 +3079,11 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         private void button4_Click(object sender, EventArgs e)
         {
             int type = 0;
-            if (radioButton30.Checked == true)
+            if (radioButton30.Checked)
                 type = 0;
-            else if (radioButton31.Checked == true)
+            else if (radioButton31.Checked)
                 type = 1;
-            else if (radioButton32.Checked == true)
+            else if (radioButton32.Checked)
                 type = 2;
             BigInteger p, x2, y2, z2, a;
             int quantity = int.Parse(textBox14.Text), num;
@@ -3287,11 +3257,11 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         {
             //CP
             int type = 0;
-            if (radioButton30.Checked == true)
+            if (radioButton30.Checked)
                 type = 0;
-            else if (radioButton31.Checked == true)
+            else if (radioButton31.Checked)
                 type = 1;
-            else if (radioButton32.Checked == true)
+            else if (radioButton32.Checked)
                 type = 2;
             BigInteger p, x2, y2, z2, a;
             int quantity = int.Parse(textBox14.Text), num;
@@ -3773,8 +3743,6 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     }
                 }
             }
-     
-
             int[,] minPair = new int[num, 3];
             double min = 0;
             for (int i = 0; i < num; i++)
@@ -3853,11 +3821,60 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             }
             swBest.Close();
             MessageBox.Show("Записано успішно!", "УСПІШНО!", MessageBoxButtons.OK, MessageBoxIcon.None);
-
         }
-
-
-
+        private void testingButton_Click(object sender, EventArgs e)
+        {
+            BigInteger a = BigInteger.Parse(textBox2.Text);
+            BigInteger b = BigInteger.Parse(textBox3.Text);
+            int from = int.Parse(textBox48.Text);
+            int to = int.Parse(textBox47.Text);
+            int tmp = Functions.rand(from, to);
+            BigInteger p = Functions.random_max(tmp);
+            int quantity = int.Parse(textBox46.Text);
+            List<BigInteger[]> pointsList = new List<BigInteger[]>();
+            EllipticCC.Generate_Point_EC(a,b,p, out pointsList);
+            BigInteger[] coord = new BigInteger[3];
+            BigInteger kFrom = BigInteger.Parse(textBox51.Text);
+            BigInteger kTo = BigInteger.Parse(textBox50.Text);
+            BigInteger kStep = BigInteger.Parse(textBox49.Text);
+            BigInteger x1, y1, z1, x2 = 0, y2 = 1, z2 = 0, x3 = 0, y3 = 1, z3 = 0;
+            bool flag = false;
+            int count = 0;
+            for (BigInteger k = kFrom; k < kTo; k += kStep)
+            {
+                for (int i = 0; i < quantity; i++)
+                {
+                    foreach (var l in pointsList)
+                    {
+                        coord = l;
+                        Point_Multiplication_Affine_Coord_1(coord[0], coord[1], coord[2], a, k, p, out x1, out y1, out z1, 0);
+                        if (radioButton47.Checked)
+                        {
+                            Point_Multiplication_Affine_Coord_1(coord[0], coord[1], coord[2], a, k, p, out x2, out y2, out z2, 1);
+                            x3 = x2; y3 = y2; z3 = z2;
+                            ProjectiveToAffine(x2, y2, z2, p, out x2, out y2, out z2);
+                        }
+                        if (radioButton47.Checked)
+                        {
+                            Point_Multiplication_Affine_Coord_1(coord[0], coord[1], coord[2], a, k, p, out x2, out y2, out z2, 2);
+                            x3 = x2; y3 = y2; z3 = z2;
+                            JacobyToAffine(x2,y2,z2,p, out x2, out y2, out z2);
+                        }                       
+                        if ((x1 != x2) || (y1 != y2) || (z1 != z2))
+                        {
+                            flag = true;
+                            dataGridView8.Rows.Add();
+                            dataGridView8.Rows[count].Cells[0].Value = coord[0];
+                            dataGridView8.Rows[count].Cells[1].Value = coord[1];
+                            dataGridView8.Rows[count].Cells[2].Value = coord[2];
+                            count++;
+                        }
+                    }
+                }
+            }
+            if (flag) MessageBox.Show("Multiply is incorrect");
+            else MessageBox.Show("Multiply is correct");
+        }
         private void radioButton33_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -3890,7 +3907,17 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         private void label60_Click(object sender, EventArgs e)
         {
 
-        }       
+        }
+
+        private void textBox46_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void dataGridView8_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
     }
 }
 
