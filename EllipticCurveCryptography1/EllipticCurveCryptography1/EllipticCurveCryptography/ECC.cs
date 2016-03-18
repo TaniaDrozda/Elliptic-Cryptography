@@ -1669,20 +1669,21 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             dataGridView7.Rows[0].Cells[2].Value = z2.ToString();
         }
         private void RowHeaderMouse_Click(object sender, DataGridViewCellMouseEventArgs e)
-        {/*
-            foreach (DataGridViewRow row in this.dataGridView5.SelectedRows)
-            {
-                textBox43.Text = row.Cells[0].Value.ToString();
-                textBox44.Text = row.Cells[1].Value.ToString();
-                textBox45.Text = row.Cells[2].Value.ToString();
+        {           
+                /*
+                foreach (DataGridViewRow row in this.dataGridView5.SelectedRows)
+                {
+                    textBox43.Text = row.Cells[0].Value.ToString();
+                    textBox44.Text = row.Cells[1].Value.ToString();
+                    textBox45.Text = row.Cells[2].Value.ToString();
+                }
+                foreach (DataGridViewRow row in this.dataGridView6.SelectedRows)
+                {
+                    textBox43.Text = row.Cells[0].Value.ToString();
+                    textBox44.Text = row.Cells[1].Value.ToString();
+                    textBox45.Text = row.Cells[2].Value.ToString();
+                }*/
             }
-            foreach (DataGridViewRow row in this.dataGridView6.SelectedRows)
-            {
-                textBox43.Text = row.Cells[0].Value.ToString();
-                textBox44.Text = row.Cells[1].Value.ToString();
-                textBox45.Text = row.Cells[2].Value.ToString();
-            }*/
-        }
         private void Add_Click(object sender, EventArgs e)
         {
             BigInteger a, b, p, x1 = 0, y1 = 1, z1 = 0, x2 = 0, y2 = 1, z2 = 0, x3 = 0, y3 = 1, z3 = 0;
@@ -1841,6 +1842,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         {
             BigInteger p = BigInteger.Parse(dataGridView3.CurrentCell.Value.ToString());
             textBox1.Text = p.ToString();
+            textBox48.Text = p.ToString();
         }
 
         private void downloadPointsFromFile2_Click(object sender, EventArgs e)
@@ -3826,13 +3828,10 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         {
             BigInteger a = BigInteger.Parse(textBox2.Text);
             BigInteger b = BigInteger.Parse(textBox3.Text);
-            int from = int.Parse(textBox48.Text);
-            int to = int.Parse(textBox47.Text);
-            int tmp = Functions.rand(from, to); 
-            BigInteger p = Functions.random_max(tmp);
+            BigInteger p = BigInteger.Parse(textBox48.Text);
             int quantity = int.Parse(textBox46.Text);
             List<BigInteger[]> pointsList = new List<BigInteger[]>();
-            EllipticCC.Generate_Point_EC(a,b,p, out pointsList);
+            EllipticCC.Generate_Point_EC_(a,b,p, quantity, out pointsList);
             BigInteger[] coord = new BigInteger[3];
             BigInteger kFrom = BigInteger.Parse(textBox51.Text);
             BigInteger kTo = BigInteger.Parse(textBox50.Text);
@@ -3840,23 +3839,22 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             BigInteger x1, y1, z1, x2 = 0, y2 = 1, z2 = 0, x3 = 0, y3 = 1, z3 = 0;
             bool flag = false;
             int count = 0;
+            double time;
             for (BigInteger k = kFrom; k < kTo; k += kStep)
-            {
-                for (int i = 0; i < quantity; i++)
-                {
+            {            
                     foreach (var l in pointsList)
                     {
                         coord = l;
-                        Point_Multiplication_Affine_Coord_1(coord[0], coord[1], coord[2], a, k, p, out x1, out y1, out z1, 0);
+                        Point_Multiplication_Affine_Coord_32(coord[0], coord[1], coord[2], a, k, p, out x1, out y1, out z1, out time, 0);
                         if (radioButton47.Checked)
                         {
-                            Point_Multiplication_Affine_Coord_1(coord[0], coord[1], coord[2], a, k, p, out x2, out y2, out z2, 1);
+                            Point_Multiplication_Affine_Coord_32(coord[0], coord[1], coord[2], a, k, p, out x2, out y2, out z2, out time, 1);
                             x3 = x2; y3 = y2; z3 = z2;
                             ProjectiveToAffine(x2, y2, z2, p, out x2, out y2, out z2);
                         }
-                        if (radioButton47.Checked)
+                        if (radioButton46.Checked)
                         {
-                            Point_Multiplication_Affine_Coord_1(coord[0], coord[1], coord[2], a, k, p, out x2, out y2, out z2, 2);
+                            Point_Multiplication_Affine_Coord_32(coord[0], coord[1], coord[2], a, k, p, out x2, out y2, out z2, out time, 2);
                             x3 = x2; y3 = y2; z3 = z2;
                             JacobyToAffine(x2,y2,z2,p, out x2, out y2, out z2);
                         }                       
@@ -3869,12 +3867,12 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                             dataGridView8.Rows[count].Cells[2].Value = coord[2];
                             count++;
                         }
-                    }
-                }
+                    }              
             }
             if (flag) MessageBox.Show("Multiply is incorrect");
             else MessageBox.Show("Multiply is correct");
         }
+    
         private void radioButton33_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -3913,11 +3911,8 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         {
 
         }
-        private void dataGridView8_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
-
+       
     }
 }
 
