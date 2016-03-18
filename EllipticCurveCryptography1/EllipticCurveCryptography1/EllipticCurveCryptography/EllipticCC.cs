@@ -100,9 +100,10 @@ namespace EllipticCurveCryptography
                 }
                 while (left_side != right_side);//поиск корня не всегда правильно работает, поэтому проверяем дополнительно
                 
-                BigInteger[] coord = new BigInteger[2];
+                BigInteger[] coord = new BigInteger[3];
                 coord[0] = x;
                 coord[1] = y;
+                coord[2] = 1;
                 K.Add(coord);
             }        
         }
