@@ -16,31 +16,30 @@ namespace EllipticCurveCryptography
     {
         public delegate void AddDelegate(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger x2, BigInteger y2, BigInteger z2, BigInteger a, BigInteger p,
             out BigInteger x3, out BigInteger y3, out BigInteger z3);
-
         public delegate void DoubleDelegate(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p,
             out BigInteger x3, out BigInteger y3, out BigInteger z3);
-
         public delegate void TernaryDelegate(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p,
             out BigInteger x3, out BigInteger y3, out BigInteger z3);
-
         private static List<DoubleDelegate> DoubleList;
         private static List<AddDelegate> AddList;
         private static List<TernaryDelegate> TernaryList;
-
         static PointMultiplication()
         {
             DoubleList = new List<DoubleDelegate>();
             DoubleList.Add(Double_Affine_Coord);
             DoubleList.Add(Double_Projective_Coord);
             DoubleList.Add(Double_Jacoby_Coord);
+            DoubleList.Add(Double_Jacoby_Quartic);
             AddList = new List<AddDelegate>();
             AddList.Add(Add_Affine_Coord);
             AddList.Add(Add_Projective_Coord);
             AddList.Add(Add_Jacoby_Coord);
+            AddList.Add(Add_Jacoby_Quartic);
             TernaryList = new List<TernaryDelegate>();
             TernaryList.Add(Ternary.Ternary_Affine_Coord);
             TernaryList.Add(Ternary.Ternary_Projective_Coord);
             TernaryList.Add(Ternary.Ternary_Jacoby_Coord);
+            TernaryList.Add(Ternary.Ternary_Jacoby_Qurtic);
         }
         #region Adding
         public static void Add_Affine_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger x2, BigInteger y2, BigInteger z2, BigInteger a, BigInteger p,
@@ -339,8 +338,56 @@ namespace EllipticCurveCryptography
                 }
             }
         }
-        #endregion
+        public static void Add_Jacoby_Quartic(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger x2, BigInteger y2, BigInteger z2, BigInteger a, BigInteger p,
+            out BigInteger x3, out BigInteger y3, out BigInteger z3)
+        {
+            BigInteger b = -3;
+            if (x1 == 0 && y1 == 1 && z1 == 0)
+            {
+                x3 = x2;
+                y3 = y2;
+                z3 = z2;
+            }
+            else
+            {
+                if (x2 == 0 && y2 == 1 && z2 == 0)
+                {
+                    x3 = x1;
+                    y3 = y1;
+                    z3 = z1;
+                }
+                else
+                {
+                    if (x1 * z2 == x2 * z1)
+                    {
+                        if (y1 * z2 * z2 != z2 * z1 * z1)
+                        {
+                            x3 = 0;
+                            y3 = 1;
+                            z3 = 0;
+                        }
+                        else
+                            Double_Jacoby_Quartic(x1, y1, z1, a, p, out x3, out y3, out z3);
+                    }
+                    else
+                    {
+                        BigInteger yy = y1 * y2 % p;
+                        BigInteger xz1 = x1 * z1 % p;
+                        BigInteger xz2 = x2 * z2 % p;
+                        BigInteger zPow = BigInteger.Pow(z1, 2) * BigInteger.Pow(z2, 2) % p;
+                        BigInteger xPow = BigInteger.Pow(x1, 2) * BigInteger.Pow(x2, 2) % p;
+                        x3 = (xz1 * y2 - xz1) % p;
+                        if (x3 < 0) x3 += p;
+                        y3 = ((yy - b * xz1 * xz2) * (xPow + zPow) + (BigInteger.Pow(z1, 2) - xz2 - zPow) * 2 * xz1 * xz2) % p;
+                        if (y3 < 0) y3 += p;
+                        z3 = (zPow - xPow) % p;
+                        if (z3 < 0) z3 += p;
+                    }
 
+                }
+            }
+        }
+        #endregion
         #region Doubling
         public static void Double_Affine_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p,
             out BigInteger x3, out BigInteger y3, out BigInteger z3)
@@ -442,8 +489,38 @@ namespace EllipticCurveCryptography
                 }
             }
         }
+        public static void Double_Jacoby_Quartic(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p,
+            out BigInteger x3, out BigInteger y3, out BigInteger z3)
+        {           
+            BigInteger b = -3;
+            if (y1 % p == 0 || (x1 == 0 && y1 == 1 && z1 == 0))
+            {
+                x3 = 0;
+                y3 = 1;
+                z3 = 0; // POINT_AT_INFINITY
+            }
+            else
+            {
+                BigInteger yy = y1 * y1 % p;
+                BigInteger xx = x1 * x1 % p;
+                BigInteger zz = z1 * z1 % p;
+                BigInteger zPow = BigInteger.Pow(z1, 4) % p;
+                BigInteger xPow = BigInteger.Pow(x1, 4) % p;
+                x3 = (-2 * xx * zz) % p;
+                if (x3 < 0) x3 += p;
+                y3 = ((yy - b * xx * zz) * zPow * xPow + 2 * xx * zz * (xPow - x1 * z1 - y1)) % p;
+                if (y3 < 0) y3 += p;
+                z3 = 2*(zPow - xPow) % p;
+                if (z3 < 0) z3 += p;
+                if (y3 == 0)
+                {
+                    x3 = 0;
+                    y3 = 1;
+                    z3 = 0;
+                }
+            }
+        }
         #endregion
-
         #region Convertation
         public static void AffineToProjective(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger p, out BigInteger x2, out BigInteger y2, out BigInteger z2)
         {
@@ -488,6 +565,7 @@ namespace EllipticCurveCryptography
             else y3 = (y1 * Functions.Pow(inv, 3)) % p;
         }
         #endregion
+        #region Scalar Multiolication
         public static void Point_Multiplication_Affine_Coord_1(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger k, BigInteger p,
             out BigInteger x2, out BigInteger y2, out BigInteger z2, int type)
         {
@@ -1211,7 +1289,6 @@ namespace EllipticCurveCryptography
             TimeSpan ts = stopWatch.Elapsed;
             time = ts.TotalMilliseconds;
         }
-
         public static void Point_Multiplication_Affine_Coord_13(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger k, int w, BigInteger p, 
             out BigInteger x2, out BigInteger y2, out BigInteger z2, out double time, int type)
         {
@@ -1658,7 +1735,6 @@ namespace EllipticCurveCryptography
             TimeSpan ts = stopWatch.Elapsed;
             time = ts.TotalMilliseconds;
         }
-
         public static void Point_Multiplication_Affine_Coord_21m(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger k, BigInteger p,
            out BigInteger x3, out BigInteger y3, out BigInteger z3, out double time, int type)
         {
@@ -1707,7 +1783,6 @@ namespace EllipticCurveCryptography
             TimeSpan ts = stopWatch.Elapsed;
             time = ts.TotalMilliseconds;
         }
-
         public static void Point_Multiplication_Affine_Coord_22m(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger k, BigInteger p,
            out BigInteger x3, out BigInteger y3, out BigInteger z3, out double time, int type)
         {
@@ -1897,7 +1972,6 @@ namespace EllipticCurveCryptography
             TimeSpan ts = stopWatch.Elapsed;
             time = ts.TotalMilliseconds;
         }
-
         #region MBNS methods with trees
         /*Do not work correct*/
         public static void Point_Multiplication_Affine_Coord_27(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger k, BigInteger p,
@@ -1907,7 +1981,7 @@ namespace EllipticCurveCryptography
             BigInteger[,] PreComputation = new BigInteger[S.Length, 3];
             Tree tree;
             List<Tree.DecompositonItem> decomposition = new List<Tree.DecompositonItem>();
-            if (e.Flag == true)
+            if (e.Flag)
             {
                 tree = new Tree(k, S, M, B);
                 decomposition = tree.GetDecomposition();
@@ -2351,6 +2425,93 @@ namespace EllipticCurveCryptography
             TimeSpan ts = stopWatch.Elapsed;
             time = ts.TotalMilliseconds;
         }
+        #endregion
+        #region Multi Scalar Multiplication
+        public static void Point_Multiplication33(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger x2, BigInteger y2, BigInteger z2, BigInteger a, BigInteger k, 
+            BigInteger l, int w, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3, out double time, int type)
+        {
+            int count = (int)Math.Pow(2, w);
+            BigInteger[,,] PreComputation = new BigInteger[3,count,count];
+            x3 = 0; y3 = 1; z3 = 0;
+            for (int i = 0; i < count; i++)
+            {
+                for (int j = 0; j < count; j++)
+                {
+                    Point_Multiplication_Affine_Coord_1(x1, y1, z1, a, i, p, out x3, out y3, out z3,type);
+                    BigInteger temp1, temp2 , temp3;
+                    Point_Multiplication_Affine_Coord_1(x2, y2, z2, a, j, p, out temp1, out temp2, out temp3, type);
+                    AddList[type](x3,y3,z3,temp1, temp2, temp3, a, p, out x3, out y3, out z3);
+                    PreComputation[0, i, j] = x3;
+                    PreComputation[1, i, j] = y3;
+                    PreComputation[2, i, j] = z3;
+                }
+           }         
+           string str1 = new string(ToBin(k).Reverse().ToArray());
+           string str2 = new string(ToBin(l).Reverse().ToArray());
+           int t1 = str1.Length;
+           int t2 = str2.Length;
+            /*Add 0 to str1 and str2 when they isn't kratni w*/
+           if (t1 % w != 0)
+           {        
+               for (int i = 0; i < (w - (t1 % w)); i++)
+               {
+                   str1 += '0';
+               }
+               str1 = new string (str1.Reverse().ToArray());
+           }
+           if (t2 % w != 0)
+           {
+               for (int i = 0; i < (w - (t2 % w)); i++)
+               {
+                   str2 += '0';
+               }
+               str2 = new string(str2.Reverse().ToArray());
+           }           
+            int[] d = new int[2];
+            t1 = str1.Length;
+            t2 = str2.Length;
+            d[0] = t1 / w;
+            d[1] = t2 / w;
+           List<string> K = new List<string>();
+           List<string> L = new List<string>();
+           for (int i = 0; i < t1; i += w)
+           {
+               K.Add(str1.Substring(i,w));
+           }
+           for (int i = 0; i < t2; i += w)
+           {
+               L.Add(str2.Substring(i, w));
+           }
+           x3 = 0;
+           y3 = 1;
+           z3 = 0;
+            decimal[] tmp1 = new decimal[d[0]];
+            int[] tmp2 = new int[d[1]];
+            int ii = 0;
+            for(int i=0; i<K.Count; i++)
+            {
+                tmp1[i] = Convert.ToDecimal(K[i]);
+                ii++;
+            }
+            ii = 0;
+            foreach (string s in L)
+            {
+                tmp2[ii] = Convert.ToInt16(s);
+                ii++;
+            }
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            for (int i = 0; i < d[0]; i++)
+                for (int j = 0; j < d[1]; j++)
+                    //AddList[type](PreComputation[0,tmp1[i],tmp1[i]], PreComputation[1, tmp1[i], tmp1[i]], PreComputation[2, tmp1[i], tmp1[i]],
+                       // PreComputation[0, tmp1[j], tmp1[j]],PreComputation[1, tmp1[j], tmp1[j]],PreComputation[2, tmp1[j], tmp1[j]],a, p, out x3, out y3, out z3);
 
+            if (x2 == 0 && y2 == 1)
+               z2 = 0;
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            time = ts.TotalMilliseconds;
+        } 
+        #endregion
     }
 }
