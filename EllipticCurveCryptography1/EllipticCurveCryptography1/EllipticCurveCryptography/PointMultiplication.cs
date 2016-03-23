@@ -2466,46 +2466,67 @@ namespace EllipticCurveCryptography
                    str2 += '0';
                }
                str2 = new string(str2.Reverse().ToArray());
-           }           
-            int[] d = new int[2];
+           }        
             t1 = str1.Length;
             t2 = str2.Length;
-            d[0] = t1 / w;
-            d[1] = t2 / w;
-           List<string> K = new List<string>();
-           List<string> L = new List<string>();
-           for (int i = 0; i < t1; i += w)
-           {
-               K.Add(str1.Substring(i,w));
-           }
-           for (int i = 0; i < t2; i += w)
-           {
-               L.Add(str2.Substring(i, w));
-           }
-           x3 = 0;
-           y3 = 1;
-           z3 = 0;
-            decimal[] tmp1 = new decimal[d[0]];
-            int[] tmp2 = new int[d[1]];
-            int ii = 0;
-            for(int i=0; i<K.Count; i++)
+            BigInteger x4 = 0, y4 = 1, z4 = 0;
+            List<int> tmp1 = new List<int>();
+            List<int> tmp2 = new List<int>();
+            do
             {
-                tmp1[i] = Convert.ToDecimal(K[i]);
-                ii++;
-            }
-            ii = 0;
-            foreach (string s in L)
+                tmp1.Add((int)(k % (1 << w)));
+                k = k >> w;
+            } while (k != 0);
+            do
             {
-                tmp2[ii] = Convert.ToInt16(s);
-                ii++;
+                tmp2.Add((int)(l % (1 << w)));
+                l = l >> w;
+            } while (l != 0);
+            int maxSize = tmp1.Count, number = 0;
+            if (tmp1.Count != tmp2.Count)
+            {
+                if (tmp1.Count > tmp2.Count)
+                {
+                    maxSize = tmp1.Count;
+                    number = (maxSize - tmp2.Count) % w;
+                    do
+                    {
+                        tmp2.Add(0);
+                        number--;
+                    } while (number != 0);
+
+                }
+                else
+                {
+                    maxSize = tmp2.Count;
+                    number = (maxSize - tmp1.Count) % w;
+                    do
+                    {
+                        tmp1.Add(0);
+                        number--;
+                    } while (number != 0);
+                }
             }
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            for (int i = 0; i < d[0]; i++)
-                for (int j = 0; j < d[1]; j++)
-                    //AddList[type](PreComputation[0,tmp1[i],tmp1[i]], PreComputation[1, tmp1[i], tmp1[i]], PreComputation[2, tmp1[i], tmp1[i]],
-                       // PreComputation[0, tmp1[j], tmp1[j]],PreComputation[1, tmp1[j], tmp1[j]],PreComputation[2, tmp1[j], tmp1[j]],a, p, out x3, out y3, out z3);
-
+            for (int i = 0; i < maxSize; i++)
+            {
+                for (int j = 0; j < w * i; j++)
+                {
+                    DoubleList[type](PreComputation[0, tmp1[i], tmp2[i]], PreComputation[1, tmp1[i], tmp2[i]], PreComputation[2, tmp1[i], tmp2[i]], a, p, out x3, out y3, out z3);
+                    PreComputation[0, tmp1[i], tmp2[i]] = x3;
+                    PreComputation[1, tmp1[i], tmp2[i]] = y3;
+                    PreComputation[2, tmp1[i], tmp2[i]] = z3;
+                }
+                if (tmp1[i] > 0 || tmp2[i] > 0)
+                {
+                    AddList[type](x4, y4, z4, PreComputation[0, tmp1[i], tmp2[i]], PreComputation[1, tmp1[i], tmp2[i]], PreComputation[2, tmp1[i], tmp2[i]],
+                             a, p, out x3, out y3, out z3);
+                    x4 = x3;
+                    y4 = y3;
+                    z4 = z3;                        
+                }                                                                     
+            }
             if (x2 == 0 && y2 == 1)
                z2 = 0;
             stopWatch.Stop();
