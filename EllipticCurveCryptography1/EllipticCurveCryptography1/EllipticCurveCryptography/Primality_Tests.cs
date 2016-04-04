@@ -29,7 +29,7 @@ namespace EllipticCurveCryptography
                 if (BigInteger.GreatestCommonDivisor(a, y) != 1) return false;
                 else
                 {
-                    while (flag == true)
+                    while (flag)
                     {
                         k++;
                         b = (y - 1) >> k;                    // y-1 = 2^k * b,

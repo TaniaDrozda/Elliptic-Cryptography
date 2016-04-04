@@ -520,8 +520,30 @@ namespace EllipticCurveCryptography
                 }
             }
         }
+        public static void Double_ExtendedProjective_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p,
+            out BigInteger x2, out BigInteger y2, out BigInteger z2)
+        {
+            BigInteger t1, t2;
+            /*Tetiana Drozda*/
+            if (y1 % p == 0 || (x1 == 0 && y1 == 1 && z1 == 0))
+            {
+                x2 = 0;
+                y2 = 1;
+                z2 = 0; // POINT_AT_INFINITY
+            }
+            else
+            {
+                t1 = x1 * x1 / z1;
+                x2 = 2 * x1 * y1 * (2 * z1 * z1 + 2 * a * x1 * x1 - y1 * y1);
+                y2 = 2 * y1 * y1 * (y1 * y1 - 2 * a * x1 * x1) - BigInteger.Pow((2 * z1 * z1 + 2 * a * x1 * x1 - y1 * y1), 2);
+                z2 = BigInteger.Pow((2 * z1 * z1 + 2 * a * x1 * x1 - y1 * y1), 2);
+                t2 = BigInteger.Pow((2 * x1 * y1), 2);
+
+            }
+        }
         #endregion
-        #region Convertation
+
+            #region Convertation
         public static void AffineToProjective(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger p, out BigInteger x2, out BigInteger y2, out BigInteger z2)
         {
             x2 = x1 * z1 % p;

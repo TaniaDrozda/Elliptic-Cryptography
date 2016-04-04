@@ -14,6 +14,13 @@ namespace EllipticCurveCryptography
 {
     class Ternary
     {
+        public static void Ternary_Jacoby_Qurtic(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
+        {
+            BigInteger x2, y2, z2;
+
+            PointMultiplication.Double_Jacoby_Quartic(x1, y1, z1, a, p, out x2, out y2, out z2);
+            PointMultiplication.Add_Jacoby_Quartic(x1, y1, z1, x2, y2, z2, a, p, out x3, out y3, out z3);
+        }
         public static void Ternary_Projective_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             BigInteger x2, y2, z2;

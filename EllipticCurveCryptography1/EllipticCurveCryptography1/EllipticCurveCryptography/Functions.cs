@@ -386,7 +386,7 @@ namespace EllipticCurveCryptography
                         }
                         else flag = true;
                     }
-                    if (flag == true) res = i;
+                    if (flag) res = i;
                 }
                 if (res != 0) break;
             }

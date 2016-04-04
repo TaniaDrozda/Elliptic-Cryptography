@@ -288,6 +288,11 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             PointMultiplication.Point_Multiplication_Affine_Coord_32(bigInteger, bigInteger_2, bigInteger_3, a, k, p,
                 out x2, out y2, out z2, out time, type);
         }
+        private void PointMultiplication33(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger x2, BigInteger y2, BigInteger z2, BigInteger a, BigInteger k, BigInteger l, int w,
+            BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3, out double time, int type)
+        {
+            PointMultiplication.Point_Multiplication33(x1, y1, z1, x2, y2, z2, a, k, l, w, p, out x3, out y3, out z3, out time, type);
+        }
         private void AffineToProjective(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger p, out BigInteger x2, out BigInteger y2, out BigInteger z2)
         {
             PointMultiplication.AffineToProjective(x1, y1, z1, p, out x2, out y2, out z2);
@@ -624,113 +629,126 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
 
         private void Multiply_Click(object sender, EventArgs e)
         {
-            BigInteger a, b, p, x1, y1, z1, x2 = 0, y2 = 0, z2 = 0, k, a_max, b_max;
+            BigInteger a, b, p, x1, y1, z1, x3, y3, z3, x2 = 0, y2 = 0, z2 = 0, k, l, a_max, b_max;
             int w;
             BigInteger[] S;
             BigInteger[] M;
             BigInteger B;
-
             B = BigInteger.Parse(textBox26.Text);
             S = writeToArray(textBox29);
             M = writeToArray(textBox30);
-
             a = BigInteger.Parse(richTextBox4.Text);
             b = -3;
             p = BigInteger.Parse(richTextBox5.Text);
-
             k = BigInteger.Parse(textBox4.Text);
+            l = BigInteger.Parse(textBox47.Text);
             w = int.Parse(textBox5.Text);
             a_max = BigInteger.Parse(textBox27.Text);
             b_max = BigInteger.Parse(textBox28.Text);
-
             double time = 0;
-
             x1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             y1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
             z1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[2].Value.ToString());
-
+            
+             
             int type = 0;
-
-            if (radioButton30.Checked == true)
+            if (radioButton30.Checked)
                 type = 0;
-            else if (radioButton31.Checked == true)
+            else if (radioButton31.Checked)
                 type = 1;
-            else if (radioButton32.Checked == true)
+            else if (radioButton32.Checked)
                 type = 2;
+            else if (radioButton49.Checked)
+                type = 3;
             else MessageBox.Show("Виберіть систему координат!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             if (x1 == 0 || y1 == 0 || z1 == 0)
                 MessageBox.Show("Виберіть точку!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                if (radioButton1.Checked == true)
+                if (radioButton1.Checked)
                     Point_Multiplication_Affine_Coord_1(x1, y1, z1, a, k, p, out x2, out y2, out z2, type);
-                else if (radioButton2.Checked == true)
+                else if (radioButton2.Checked)
                     Point_Multiplication_Affine_Coord_2(x1, y1, z1, a, k, p, out x2, out y2, out z2, type);
-                else if (radioButton3.Checked == true)
+                else if (radioButton3.Checked)
                     Point_Multiplication_Affine_Coord_3(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton4.Checked == true)
+                else if (radioButton4.Checked)
                     Point_Multiplication_Affine_Coord_4(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton5.Checked == true)
+                else if (radioButton5.Checked)
                     Point_Multiplication_Affine_Coord_5(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton6.Checked == true)
+                else if (radioButton6.Checked)
                     Point_Multiplication_Affine_Coord_6(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton7.Checked == true)
+                else if (radioButton7.Checked)
                     Point_Multiplication_Affine_Coord_7_1(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, type);
-                else if (radioButton8.Checked == true)
+                else if (radioButton8.Checked)
                     Point_Multiplication_Affine_Coord_7_2(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, type);
-                else if (radioButton9.Checked == true)
+                else if (radioButton9.Checked)
                     Point_Multiplication_Affine_Coord_8(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, type);
-                else if (radioButton10.Checked == true)
+                else if (radioButton10.Checked)
                     Point_Multiplication_Affine_Coord_9(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton11.Checked == true)
+                else if (radioButton11.Checked)
                     Point_Multiplication_Affine_Coord_10(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton12.Checked == true)
+                else if (radioButton12.Checked)
                     Point_Multiplication_Affine_Coord_11_1(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton13.Checked == true)
+                else if (radioButton13.Checked)
                     Point_Multiplication_Affine_Coord_15(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton20.Checked == true)
+                else if (radioButton20.Checked)
                     Point_Multiplication_Affine_Coord_11_2(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton21.Checked == true)
+                else if (radioButton21.Checked)
                     Point_Multiplication_Affine_Coord_13(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton22.Checked == true)
+                else if (radioButton22.Checked)
                     Point_Multiplication_Affine_Coord_14(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton23.Checked == true)
+                else if (radioButton23.Checked)
                     Point_Multiplication_Affine_Coord_16(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton24.Checked == true)
+                else if (radioButton24.Checked)
                     Point_Multiplication_Affine_Coord_17(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton25.Checked == true)
+                else if (radioButton25.Checked)
                     Point_Multiplication_Affine_Coord_18(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton26.Checked == true)
+                else if (radioButton26.Checked)
                     Point_Multiplication_Affine_Coord_19(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                else if (radioButton27.Checked == true)
+                else if (radioButton27.Checked)
                     Point_Multiplication_Affine_Coord_20(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                else if (radioButton15.Checked == true)
+                else if (radioButton15.Checked)
                     Point_Multiplication_Affine_Coord_19_2(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                else if (radioButton16.Checked == true)
+                else if (radioButton16.Checked)
                     Point_Multiplication_Affine_Coord_20_1(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                else if (radioButton28.Checked == true)
+                else if (radioButton28.Checked)
                     Point_Multiplication_Affine_Coord_21(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton29.Checked == true)
+                else if (radioButton29.Checked)
                     Point_Multiplication_Affine_Coord_22(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton14.Checked == true)
+                else if (radioButton14.Checked)
                     Point_Multiplication_Affine_Coord_12(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton35.Checked == true)
+                else if (radioButton35.Checked)
                     Point_Multiplication_Affine_Coord_27(x1, y1, z1, a, k, p, out x2, out y2, out z2, B, S, M, type, out time);
-                else if (radioButton36.Checked == true)
+                else if (radioButton36.Checked)
                     Point_Multiplication_Affine_Coord_28(x1, y1, z1, a, k, p, out x2, out y2, out z2, B, S, M, type, out time);
-                else if (radioButton33.Checked == true)
+                else if (radioButton33.Checked)
                     Point_Multiplication_Affine_Coord_29(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton34.Checked == true)
+                else if (radioButton34.Checked)
                     Point_Multiplication_Affine_Coord_30(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton37.Checked == true)
+                else if (radioButton37.Checked)
                     Point_Multiplication_Affine_Coord_31(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton38.Checked == true)
+                else if (radioButton38.Checked)
                     Point_Multiplication_Affine_Coord_32(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton39.Checked == true)
+                else if (radioButton39.Checked)
                     Point_Multiplication_Affine_Coord_21m(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
-                else if (radioButton40.Checked == true)
+                else if (radioButton40.Checked)
                     Point_Multiplication_Affine_Coord_22m(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                else if (radioButton48.Checked)
+                {
+                    int i = 0;
+                    BigInteger[] arr = new BigInteger[6];
+                    foreach (DataGridViewRow row in this.dataGridView1.SelectedRows)
+                    {
+                        arr[i] = BigInteger.Parse(row.Cells[0].Value.ToString());
+                        arr[i + 1] = BigInteger.Parse(row.Cells[1].Value.ToString());
+                        arr[i + 2] = BigInteger.Parse(row.Cells[2].Value.ToString());
+                        i += 3;
+                    }
+                    x1 = arr[0]; y1 = arr[1]; z1 = arr[2];
+                    x3 = arr[3]; y3 = arr[4]; z3 = arr[5];
+                    PointMultiplication33(x1, y1, z1, x3, y3, z3, a, k, l, w, p, out x2, out y2, out z2, out time, type);
+                }
                 else
                 {
                     MessageBox.Show("Выбирете алгоритм умножения!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -889,7 +907,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             }
             else if (radioButton32.Checked )
             {
-                type = 0;
+                type = 2;
                 sw.WriteLine("Координати Якобі");
             }
             else
@@ -1000,25 +1018,20 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             BigInteger[] S;
             BigInteger[] M;
             BigInteger B;
-
             B = BigInteger.Parse(textBox26.Text);
             S = writeToArray(textBox29);
             M = writeToArray(textBox30);
-
             if (radioButton17.Checked)
             {
                 step = BigInteger.Parse(textBox13.Text);
                 max_k = BigInteger.Parse(textBox12.Text);
                 k = BigInteger.Parse(textBox11.Text);
-
                 while (k <= max_k)
                 {
                     mass_k.Add(k);
                     k += step;
-
                 }
             }
-
             if (radioButton18.Checked)
             {
                 max_k = BigInteger.Parse(textBox19.Text);
@@ -1031,8 +1044,6 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     mass_k.Add(random);
                 }
             }
-
-
             if (radioButton19.Checked)
             {
                 max_k = BigInteger.Parse(textBox22.Text);
@@ -1045,13 +1056,9 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     mass_k.Add(Functions.random_max(rand));
                 }
             }
-
-
             int w = int.Parse(textBox5.Text);
             a_max = BigInteger.Parse(textBox27.Text);
             b_max = BigInteger.Parse(textBox28.Text);
-
-
             BigInteger[,] points = new BigInteger[quantity, 3];
             double[,] time_average;
             if (radioButton17.Checked)
@@ -1065,18 +1072,13 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             double time = 0;
 
             points = EllipticCC.ReadFromFile(quantity, out a, out p);
-
             int p_bits = Functions.ToBin(p).Length;
-
             openFileDialog1.Filter = "txt файли(*.txt)|*.txt";
             openFileDialog1.FileName = "All_Algorithms_Time_" + p_bits + ".txt";
-
             string filename = openFileDialog1.FileName;
             FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
-
             int type = 0;
-
             if (radioButton30.Checked)
             {
                 type = 0;
@@ -1089,7 +1091,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             }
             else if (radioButton32.Checked)
             {
-                type = 0;
+                type = 2;
                 sw.WriteLine("Координати Якобі");
             }
             else
@@ -1109,9 +1111,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     textBox42.Text = null;
                     numberK++;
                     textBox42.AppendText(numberK.ToString());
-
                     time = 0;
-
                     for (int i = 0; i < quantity; i++)
                     {
                         TimeSpan ts = new TimeSpan();
@@ -1370,31 +1370,24 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             a = BigInteger.Parse(richTextBox4.Text);
             b = -3;
             p = BigInteger.Parse(richTextBox5.Text);
-
             k = BigInteger.Parse(textBox4.Text);
             w = int.Parse(textBox5.Text);
 
             BigInteger[] S;
             BigInteger[] M;
             BigInteger B;
-
             B = BigInteger.Parse(textBox26.Text);
             S = writeToArray(textBox29);
             M = writeToArray(textBox30);
-
             string[] numOfAlg = new string[] { "1", "2", "3", "4", "5", "6", "7_1", "7_2", "8", "9", "10", "11_1", "11_2", "12", "13", "14", "15", "16", "17", "18", "19_1", "19_2", "20_1", "20_2", "21", "22", "27", "28", "29", "30", "31", "32", "21m" }; // "22m"
-
             double time = 0;
-
             x1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             y1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
             z1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[2].Value.ToString());
-
             a_max = BigInteger.Parse(textBox27.Text);
             b_max = BigInteger.Parse(textBox28.Text);
 
             int type = 0;
-
             if (radioButton30.Checked)
             {
                 type = 0;
@@ -1407,11 +1400,14 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             {
                 type = 2;
             }
+            else if (radioButton49.Checked)
+            {
+                type = 3;
+            }
             else
             {
                 MessageBox.Show("Виберіть систему координат!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
             if (x1 == 0 || y1 == 0)
                 MessageBox.Show("Выбирете точку!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
@@ -3423,7 +3419,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 }
 
                 /*only B checked*/
-                if (checkBox4.Checked == true && checkBox5.Checked == false && checkBox9.Checked == false)
+                if (checkBox4.Checked && !checkBox5.Checked && !checkBox9.Checked)
                 {     
          
                     S = writeToArray(textBox29);
@@ -3466,7 +3462,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 else
                 {
                     /*only S checked*/
-                    if (checkBox4.Checked == false && checkBox5.Checked == true && checkBox9.Checked == false)
+                    if (!checkBox4.Checked && checkBox5.Checked && !checkBox9.Checked)
                     {
                           
                         B = BigInteger.Parse(textBox26.Text);
@@ -3508,7 +3504,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
 
                 else{
                 /*only M checked*/
-                if (checkBox4.Checked == false && checkBox5.Checked == false && checkBox9.Checked == true)
+                if (!checkBox4.Checked && !checkBox5.Checked && checkBox9.Checked)
                 {
 
                     bN = 0; sN = 0;
@@ -3554,7 +3550,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 
                     else{
                 /*B and S checked*/
-                        if (checkBox4.Checked == true && checkBox5.Checked == true && checkBox9.Checked == false)
+                        if (checkBox4.Checked && checkBox5.Checked && !checkBox9.Checked)
                         {                          
                             M = writeToArray(textBox30);
 
@@ -3597,7 +3593,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                         else
                         {
                             /*B and M checked*/
-                            if (checkBox4.Checked == true && checkBox5.Checked == false && checkBox9.Checked == true)
+                            if (checkBox4.Checked && checkBox5.Checked == false && checkBox9.Checked)
                             {
                                 S = writeToArray(textBox29);
 
@@ -3638,7 +3634,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                             else
                             {
                                 /*S and M checked*/
-                                if (checkBox4.Checked == false && checkBox5.Checked == true && checkBox9.Checked == true)
+                                if (checkBox4.Checked == false && checkBox5.Checked && checkBox9.Checked)
                                 {
                                     bN = 0;
                                     B = BigInteger.Parse(textBox26.Text);                                   
@@ -3682,7 +3678,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                                 else
                                 {
                                     /*All checked*/
-                                    if (checkBox4.Checked == true && checkBox5.Checked == true && checkBox9.Checked == true)
+                                    if (checkBox4.Checked && checkBox5.Checked && checkBox9.Checked)
                                     {
                                         bN = 0;
                                         for (int ii = startB; ii <= endB; ii++)
@@ -3872,47 +3868,19 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             if (flag) MessageBox.Show("Multiply is incorrect");
             else MessageBox.Show("Multiply is correct");
         }
-    
         private void radioButton33_CheckedChanged(object sender, EventArgs e)
         {
 
         }
-
         private void radioButton34_CheckedChanged(object sender, EventArgs e)
         {
 
         }
-        private void groupBox13_Enter(object sender, EventArgs e)
-        {
-
-        }
-        private void label48_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox26_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void label53_Click(object sender, EventArgs e)
-        {
-
-        }       
-        private void label60_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void textBox46_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-       
+        }      
     }
 }
 
+     

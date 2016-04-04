@@ -169,6 +169,9 @@
             this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Z = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButton48 = new System.Windows.Forms.RadioButton();
+            this.textBox47 = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
             this.radioButton40 = new System.Windows.Forms.RadioButton();
             this.radioButton38 = new System.Windows.Forms.RadioButton();
             this.radioButton39 = new System.Windows.Forms.RadioButton();
@@ -272,6 +275,9 @@
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.textBox46 = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
             this.textBox49 = new System.Windows.Forms.TextBox();
             this.label66 = new System.Windows.Forms.Label();
             this.label67 = new System.Windows.Forms.Label();
@@ -285,9 +291,7 @@
             this.textBox48 = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.label61 = new System.Windows.Forms.Label();
-            this.textBox46 = new System.Windows.Forms.TextBox();
-            this.label62 = new System.Windows.Forms.Label();
+            this.radioButton49 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox14.SuspendLayout();
@@ -328,7 +332,7 @@
             this.tabControl1.Location = new System.Drawing.Point(4, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1045, 733);
+            this.tabControl1.Size = new System.Drawing.Size(1045, 763);
             this.tabControl1.TabIndex = 19;
             // 
             // tabPage1
@@ -341,7 +345,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1037, 707);
+            this.tabPage1.Size = new System.Drawing.Size(1037, 737);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "ЕК";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -689,7 +693,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1037, 707);
+            this.tabPage2.Size = new System.Drawing.Size(1037, 737);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Множення";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -729,7 +733,6 @@
             this.groupBox13.TabIndex = 59;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Вибір параметрів для алгоритмів 27,28";
-            this.groupBox13.Enter += new System.EventHandler(this.groupBox13_Enter);
             // 
             // textBox40
             // 
@@ -866,7 +869,6 @@
             this.label53.Size = new System.Drawing.Size(42, 13);
             this.label53.TabIndex = 46;
             this.label53.Text = "Розмір";
-            this.label53.Click += new System.EventHandler(this.label53_Click);
             // 
             // label52
             // 
@@ -907,7 +909,6 @@
             this.checkBox5.TabIndex = 7;
             this.checkBox5.Text = "S";
             this.checkBox5.UseVisualStyleBackColor = true;
-            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // checkBox4
             // 
@@ -942,7 +943,6 @@
             this.textBox26.Size = new System.Drawing.Size(100, 20);
             this.textBox26.TabIndex = 3;
             this.textBox26.Text = "2";
-            this.textBox26.TextChanged += new System.EventHandler(this.textBox26_TextChanged);
             // 
             // label50
             // 
@@ -970,7 +970,6 @@
             this.label48.Size = new System.Drawing.Size(14, 13);
             this.label48.TabIndex = 0;
             this.label48.Text = "B";
-            this.label48.Click += new System.EventHandler(this.label48_Click);
             // 
             // groupBox12
             // 
@@ -1199,6 +1198,7 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.radioButton49);
             this.groupBox10.Controls.Add(this.radioButton32);
             this.groupBox10.Controls.Add(this.radioButton31);
             this.groupBox10.Controls.Add(this.radioButton30);
@@ -1706,6 +1706,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.radioButton48);
+            this.groupBox2.Controls.Add(this.textBox47);
+            this.groupBox2.Controls.Add(this.label63);
             this.groupBox2.Controls.Add(this.radioButton40);
             this.groupBox2.Controls.Add(this.radioButton38);
             this.groupBox2.Controls.Add(this.radioButton39);
@@ -1754,10 +1757,38 @@
             this.groupBox2.Controls.Add(this.radioButton1);
             this.groupBox2.Location = new System.Drawing.Point(3, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(163, 695);
+            this.groupBox2.Size = new System.Drawing.Size(163, 725);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Алгоритми множення";
+            // 
+            // radioButton48
+            // 
+            this.radioButton48.AutoSize = true;
+            this.radioButton48.Location = new System.Drawing.Point(105, 248);
+            this.radioButton48.Name = "radioButton48";
+            this.radioButton48.Size = new System.Drawing.Size(37, 17);
+            this.radioButton48.TabIndex = 71;
+            this.radioButton48.TabStop = true;
+            this.radioButton48.Text = "33";
+            this.radioButton48.UseVisualStyleBackColor = true;
+            // 
+            // textBox47
+            // 
+            this.textBox47.Location = new System.Drawing.Point(43, 417);
+            this.textBox47.Name = "textBox47";
+            this.textBox47.Size = new System.Drawing.Size(100, 20);
+            this.textBox47.TabIndex = 69;
+            this.textBox47.Text = "20000";
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(8, 420);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(21, 13);
+            this.label63.TabIndex = 70;
+            this.label63.Text = "l = ";
             // 
             // radioButton40
             // 
@@ -1839,7 +1870,7 @@
             // 
             // textBox28
             // 
-            this.textBox28.Location = new System.Drawing.Point(60, 465);
+            this.textBox28.Location = new System.Drawing.Point(60, 495);
             this.textBox28.Name = "textBox28";
             this.textBox28.Size = new System.Drawing.Size(83, 20);
             this.textBox28.TabIndex = 61;
@@ -1860,7 +1891,7 @@
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(8, 469);
+            this.label43.Location = new System.Drawing.Point(8, 499);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(50, 13);
             this.label43.TabIndex = 62;
@@ -1868,7 +1899,7 @@
             // 
             // textBox27
             // 
-            this.textBox27.Location = new System.Drawing.Point(60, 439);
+            this.textBox27.Location = new System.Drawing.Point(60, 469);
             this.textBox27.Name = "textBox27";
             this.textBox27.Size = new System.Drawing.Size(83, 20);
             this.textBox27.TabIndex = 59;
@@ -1877,7 +1908,7 @@
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(11, 442);
+            this.label42.Location = new System.Drawing.Point(11, 472);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(50, 13);
             this.label42.TabIndex = 60;
@@ -1918,7 +1949,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(5, 624);
+            this.button3.Location = new System.Drawing.Point(5, 654);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(138, 65);
             this.button3.TabIndex = 56;
@@ -1939,7 +1970,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(5, 553);
+            this.button2.Location = new System.Drawing.Point(5, 583);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 65);
             this.button2.TabIndex = 55;
@@ -1991,7 +2022,7 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(43, 413);
+            this.textBox5.Location = new System.Drawing.Point(43, 443);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 15;
@@ -2020,7 +2051,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 416);
+            this.label6.Location = new System.Drawing.Point(12, 446);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 13);
             this.label6.TabIndex = 16;
@@ -2083,7 +2114,7 @@
             // 
             // multiplyAllAlgorithms
             // 
-            this.multiplyAllAlgorithms.Location = new System.Drawing.Point(27, 524);
+            this.multiplyAllAlgorithms.Location = new System.Drawing.Point(27, 554);
             this.multiplyAllAlgorithms.Name = "multiplyAllAlgorithms";
             this.multiplyAllAlgorithms.Size = new System.Drawing.Size(91, 23);
             this.multiplyAllAlgorithms.TabIndex = 44;
@@ -2093,7 +2124,7 @@
             // 
             // Multiply
             // 
-            this.Multiply.Location = new System.Drawing.Point(27, 491);
+            this.Multiply.Location = new System.Drawing.Point(27, 521);
             this.Multiply.Name = "Multiply";
             this.Multiply.Size = new System.Drawing.Size(91, 23);
             this.Multiply.TabIndex = 33;
@@ -2264,7 +2295,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1037, 707);
+            this.tabPage3.Size = new System.Drawing.Size(1037, 737);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Операції над точками";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -2278,7 +2309,6 @@
             this.label60.Size = new System.Drawing.Size(128, 13);
             this.label60.TabIndex = 46;
             this.label60.Text = "Результат переведення";
-            this.label60.Click += new System.EventHandler(this.label60_Click);
             // 
             // dataGridView7
             // 
@@ -2750,7 +2780,7 @@
             this.tabPage4.Controls.Add(this.groupBox16);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1037, 707);
+            this.tabPage4.Size = new System.Drawing.Size(1037, 737);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Тестування";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2821,6 +2851,34 @@
             this.groupBox16.TabIndex = 0;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Методика тестування";
+            // 
+            // textBox46
+            // 
+            this.textBox46.Location = new System.Drawing.Point(15, 83);
+            this.textBox46.Name = "textBox46";
+            this.textBox46.Size = new System.Drawing.Size(72, 20);
+            this.textBox46.TabIndex = 59;
+            this.textBox46.Text = "30";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.BackColor = System.Drawing.Color.LightGray;
+            this.label62.Location = new System.Drawing.Point(14, 67);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(84, 13);
+            this.label62.TabIndex = 58;
+            this.label62.Text = "Кількість точок";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.BackColor = System.Drawing.Color.Gainsboro;
+            this.label61.Location = new System.Drawing.Point(16, 201);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(107, 13);
+            this.label61.TabIndex = 57;
+            this.label61.Text = "Система координат";
             // 
             // textBox49
             // 
@@ -2934,39 +2992,22 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // label61
+            // radioButton49
             // 
-            this.label61.AutoSize = true;
-            this.label61.BackColor = System.Drawing.Color.Gainsboro;
-            this.label61.Location = new System.Drawing.Point(16, 201);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(107, 13);
-            this.label61.TabIndex = 57;
-            this.label61.Text = "Система координат";
-            // 
-            // textBox46
-            // 
-            this.textBox46.Location = new System.Drawing.Point(15, 83);
-            this.textBox46.Name = "textBox46";
-            this.textBox46.Size = new System.Drawing.Size(72, 20);
-            this.textBox46.TabIndex = 59;
-            this.textBox46.Text = "30";
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.BackColor = System.Drawing.Color.LightGray;
-            this.label62.Location = new System.Drawing.Point(14, 67);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(84, 13);
-            this.label62.TabIndex = 58;
-            this.label62.Text = "Кількість точок";
+            this.radioButton49.AutoSize = true;
+            this.radioButton49.Location = new System.Drawing.Point(10, 88);
+            this.radioButton49.Name = "radioButton49";
+            this.radioButton49.Size = new System.Drawing.Size(93, 17);
+            this.radioButton49.TabIndex = 3;
+            this.radioButton49.TabStop = true;
+            this.radioButton49.Text = "Jacobi Quartic";
+            this.radioButton49.UseVisualStyleBackColor = true;
             // 
             // ECC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 733);
+            this.ClientSize = new System.Drawing.Size(1184, 768);
             this.Controls.Add(this.tabControl1);
             this.Name = "ECC";
             this.Text = "ECC";
@@ -3284,5 +3325,9 @@
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.TextBox textBox46;
         private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.TextBox textBox47;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.RadioButton radioButton48;
+        private System.Windows.Forms.RadioButton radioButton49;
     }
 }
