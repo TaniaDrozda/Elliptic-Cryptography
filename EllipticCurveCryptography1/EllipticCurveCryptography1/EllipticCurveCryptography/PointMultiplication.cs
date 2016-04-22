@@ -387,6 +387,68 @@ namespace EllipticCurveCryptography
                 }
             }
         }
+        public static void Add_ModifiedJacoby_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger t1, BigInteger x2, BigInteger y2, BigInteger z2, BigInteger t2, BigInteger a, BigInteger p,
+            out BigInteger x3, out BigInteger y3, out BigInteger z3, out BigInteger t3)
+        {
+            z3 = 0;
+            t1 = a * BigInteger.Pow(z1, 4);
+            t2 = a * BigInteger.Pow(z2, 4);
+            t3 = a * BigInteger.Pow(z3, 4);
+            BigInteger h, r;
+            if (x1 == 0 && y1 == 1 && z1 == 0)
+            {
+                x3 = x2;
+                y3 = y2;
+                z3 = z2;
+            }
+            else
+            {
+                if (x2 == 0 && y2 == 1 && z2 == 0)
+                {
+                    x3 = x1;
+                    y3 = y1;
+                    z3 = z1;
+                }
+                else
+                {
+                    BigInteger u1 = (x1 * BigInteger.Pow(z2,2)) % p;
+                    BigInteger u2 = (x2 * BigInteger.Pow(z1,2)) % p;
+
+                    BigInteger s1 = (y1 * BigInteger.Pow(z2,3)) % p;
+                    BigInteger s2 = (y2 * BigInteger.Pow(z1,3)) % p;
+                    
+                    if (u1 == u2)
+                    {
+                        if (s1 != s2)
+                        {
+                            x3 = 0;
+                            y3 = 1;
+                            z3 = 0; // POINT_AT_INFINITY
+                        }
+                        else Double_ModifiedJacoby_Coord(x1, y1, z1, t1, a, p, out x3, out y3, out z3, out t3);
+                    }
+                    else
+                    {
+                        if ((u2 - u1) % p < 0)
+                            h = (u2 - u1) % p + p;
+                        else h = (u2 - u1) % p;
+
+                        if ((s2 - s1) % p < 0)
+                            r = (s2 - s1) % p + p;
+                        else r = (s2 - s1) % p;
+
+                        x3 = (-BigInteger.Pow(h, 3) - 2 * u1 * BigInteger.Pow(h, 2) + BigInteger.Pow(r, 2)) % p;
+                        if (x3 < 0) x3 += p;
+                        y3 = (-s1 * BigInteger.Pow(h, 3) + r * (u1 * BigInteger.Pow(h, 2) - x3)) % p;
+                        if (y3 < 0) y3 += p;
+                        z3 = z1 * z2 * h;
+                        if (z3 < 0) z3 += p;
+                        t3 = a * BigInteger.Pow(z3, 4);
+                        if (t3 < 0) t3 += p;
+                    }
+                }
+            }
+        }
         #endregion
         #region Doubling
         public static void Double_Affine_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p,
@@ -541,9 +603,38 @@ namespace EllipticCurveCryptography
 
             }
         }
+        public static void Double_ModifiedJacoby_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger t1, BigInteger a, BigInteger p,
+            out BigInteger x3, out BigInteger y3, out BigInteger z3, out BigInteger t3)
+        {
+            z3 = 0;
+            BigInteger s, u, m;
+            t1 = a * BigInteger.Pow(z1, 4);
+            t3 = a * BigInteger.Pow(z3, 4);
+            if (y1 % p == 0 || (x1 == 0 && y1 == 1 && z1 == 0))
+            {
+                x3 = 0;
+                y3 = 1;
+                z3 = 0; // POINT_AT_INFINITY
+            }
+            else
+            {              
+                s = (4 * x1 * BigInteger.Pow(y1, 2)) % p;
+                u = (8 * BigInteger.Pow(y1, 4)) % p;
+                m = (3 * BigInteger.Pow(x1, 2) + t1) % p;
+
+                x3 = (-2 * s + BigInteger.Pow(m, 2)) % p;
+                if (x3 < 0) x3 += p;
+                y3 = (m * (s - x3) - u) % p;
+                if (y3 < 0) y3 += p;
+                z3 = (2 * y1 * z1) % p;
+                if (z3 < 0) z3 += p;
+                t3 = (2 * u * t1) % p;
+                if (t3 < 0) t3 += p;
+            }
+        }
         #endregion
 
-            #region Convertation
+        #region Convertation
         public static void AffineToProjective(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger p, out BigInteger x2, out BigInteger y2, out BigInteger z2)
         {
             x2 = x1 * z1 % p;
