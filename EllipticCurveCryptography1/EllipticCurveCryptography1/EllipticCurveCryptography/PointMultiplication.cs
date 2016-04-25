@@ -918,8 +918,11 @@ namespace EllipticCurveCryptography
         {
             int ind = (int)Math.Pow(2, w) - 1;
             BigInteger[,] PreComputation = new BigInteger[ind, 3];
-            BigInteger x3 = 0, y3 = 0, z3 = 0, t3 = 0;
-
+            BigInteger x3 = 0, y3 = 0, z3 = 0, t3 = 0, r5 = 0, r6 = 0;
+            BigInteger t1 = a * BigInteger.Pow(z1, 4); BigInteger t2 = 0;
+            BigInteger r1 = z1 * z1;
+            BigInteger r2 = z1 * z1 * z1;
+            BigInteger r3 = 0, r4 = 0;
             for (int i = 1; i <= ind; i++)
             {
                 Point_Multiplication_Affine_Coord_1(x1, y1, z1, a, i, p, out x2, out y2, out z2, type);
@@ -949,10 +952,23 @@ namespace EllipticCurveCryptography
                 string temp = str.Substring(left_range - 1, right_range - left_range + 1);
                 for (int d = 0; d < right_range - left_range + 1; d++)
                 {
-                    DoubleList[type](x2, y2, z2, a, p, out x3, out y3, out z3);
+                    switch (type)
+                    {
+                        case 4:
+                            Double_ModifiedJacoby_Coord(x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                        case 3:
+                            Double_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                        case 0:
+                        case 1:
+                        case 2:
+                            DoubleList[type](x2, y2, z2, a, p, out x3, out y3, out z3); break;
+                    }
                     x2 = x3;
                     y2 = y3;
                     z2 = z3;
+                    t2 = t3;
+                    r3 = r5;
+                    r4 = r6;
                 }
                 int pow = 1;
                 int legth_temp = temp.Length;
@@ -972,12 +988,24 @@ namespace EllipticCurveCryptography
 
                 if (temp_1 > 0)
                 {
-                    AddList[type](PreComputation[temp_1 - 1, 0], PreComputation[temp_1 - 1, 1], PreComputation[temp_1 - 1, 2], x2, y2, z2, a, p, out x3, out y3, out z3);
+                    switch(type)
+                    {
+                        case 4:
+                                Add_ModifiedJacoby_Coord(PreComputation[temp_1 - 1, 0], PreComputation[temp_1 - 1, 1], PreComputation[temp_1 - 1, 2], t1, x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                        case 3:
+                                Add_JacobyChudnovskii_Coord(PreComputation[temp_1 - 1, 0], PreComputation[temp_1 - 1, 1], PreComputation[temp_1 - 1, 2], r1, r2, x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                        case 0:
+                        case 1:
+                        case 2:
+                                AddList[type](PreComputation[temp_1 - 1, 0], PreComputation[temp_1 - 1, 1], PreComputation[temp_1 - 1, 2], x2, y2, z2, a, p, out x3, out y3, out z3); break;
+                    }   
                     x2 = x3;
                     y2 = y3;
                     z2 = z3;
+                    t2 = t3;
+                    r3 = r5;
+                    r4 = r6;
                 }
-
             }
            if (x2 == 0 && y2 == 1)
                 z2 = 0;
@@ -991,8 +1019,11 @@ namespace EllipticCurveCryptography
             int temp_step = (int)(BigInteger.Pow(2, w - 1));
             int count = (int)(BigInteger.Pow(2, w) - temp_step);
             BigInteger[,] PreComputation = new BigInteger[count, 3];
-            BigInteger x3 = 0, y3 = 0, z3 = 0;
-
+            BigInteger x3 = 0, y3 = 0, z3 = 0, t3 = 0, r5 = 0, r6 = 0;
+            BigInteger t1 = a * BigInteger.Pow(z1, 4); BigInteger t2 = 0;
+            BigInteger r1 = z1 * z1;
+            BigInteger r2 = z1 * z1 * z1;
+            BigInteger r3 = 0, r4 = 0;
             for (int i = 0; i < count; i++)
             {
                 Point_Multiplication_Affine_Coord_1(x1, y1, z1, a, temp_step + i, p, out x2, out y2, out z2, type);
@@ -1022,15 +1053,45 @@ namespace EllipticCurveCryptography
                     {
                         if (str[m] == '1')
                         {
-                            AddList[type](x_temp, y_temp, z_temp, x2, y2, z2, a, p, out x3, out y3, out z3);
+                            switch (type)
+                            {
+                                case 4:
+                                    Add_ModifiedJacoby_Coord(x_temp, y_temp, z_temp, t1, x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                                case 3:
+                                    Add_JacobyChudnovskii_Coord(x_temp, y_temp, z_temp, r1, r2, x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                                case 0:
+                                case 1:
+                                case 2:
+                                    AddList[type](x_temp, y_temp, z_temp, x2, y2, z2, a, p, out x3, out y3, out z3); break;
+                            }
                             x2 = x3;
                             y2 = y3;
                             z2 = z3;
                         }
-                        DoubleList[type](x_temp, y_temp, z_temp, a, p, out x_temp, out y_temp, out z_temp);
+                        switch (type)
+                        {
+                            case 4:
+                                Double_ModifiedJacoby_Coord(x_temp, y_temp, z_temp, t1, a, p, out x_temp, out y_temp, out z_temp, out t1); break;
+                            case 3:
+                                Double_JacobyChudnovskii_Coord(x_temp, y_temp, z_temp, r1, r1, a, p, out x_temp, out y_temp, out z_temp, out r1, out r2); break;
+                            case 0:
+                            case 1:
+                            case 2:
+                                DoubleList[type](x_temp, y_temp, z_temp, a, p, out x_temp, out y_temp, out z_temp); break;
+                        }
                         for (int j = 0; j < h; j++)
                         {
-                            DoubleList[type](PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2]);
+                            switch (type)
+                            {
+                                case 4:
+                                    Double_ModifiedJacoby_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], t1, a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2], out t1); break;
+                                case 3:
+                                    Double_JacobyChudnovskii_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], r1, r1, a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2], out r1, out r2); break;
+                                case 0:
+                                case 1:
+                                case 2:
+                                    DoubleList[type](PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2]); break;
+                            }
                         }
                         m++;
                     }
@@ -1052,13 +1113,45 @@ namespace EllipticCurveCryptography
                             temp_1 = temp_1 + pow * arr[d];
                         }
                         if (temp_1 > 0)
-                            AddList[type](PreComputation[temp_1 - temp_step, 0], PreComputation[temp_1 - temp_step, 1], PreComputation[temp_1 - temp_step, 2], x2, y2, z2, a, p, out x2, out y2, out z2);
+                        {
+                            switch (type)
+                            {
+                                case 4:
+                                    Add_ModifiedJacoby_Coord(PreComputation[temp_1 - temp_step, 0], PreComputation[temp_1 - temp_step, 1], PreComputation[temp_1 - temp_step, 2], t1, x2, y2, z2, t2, a, p, out x2, out y2, out z2, out t2); break;
+                                case 3:
+                                    Add_JacobyChudnovskii_Coord(PreComputation[temp_1 - temp_step, 0], PreComputation[temp_1 - temp_step, 1], PreComputation[temp_1 - temp_step, 2], r1, r2, x2, y2, z2, r3, r4, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                                case 0:
+                                case 1:
+                                case 2:
+                                    AddList[type](PreComputation[temp_1 - temp_step, 0], PreComputation[temp_1 - temp_step, 1], PreComputation[temp_1 - temp_step, 2], x2, y2, z2, a, p, out x2, out y2, out z2); break;
+                            }
+                        }
                         for (int d = 0; d < w; d++)
                         {
-                            DoubleList[type](x_temp, y_temp, z_temp, a, p, out x_temp, out y_temp, out z_temp);
+                            switch (type)
+                            {
+                                case 4:
+                                    Double_ModifiedJacoby_Coord(x_temp, y_temp, z_temp, t1, a, p, out x_temp, out y_temp, out z_temp, out t1); break;
+                                case 3:
+                                    Double_JacobyChudnovskii_Coord(x_temp, y_temp, z_temp, r1, r1, a, p, out x_temp, out y_temp, out z_temp, out r1, out r2); break;
+                                case 0:
+                                case 1:
+                                case 2:
+                                    DoubleList[type](x_temp, y_temp, z_temp, a, p, out x_temp, out y_temp, out z_temp); break;
+                            }
                             for (int j = 0; j < h; j++)
                             {
-                                DoubleList[type](PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], a, p, out  PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2]);
+                                switch (type)
+                                {
+                                    case 4:
+                                        Double_ModifiedJacoby_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], t1, a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2], out t1); break;
+                                    case 3:
+                                        Double_JacobyChudnovskii_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], r1, r1, a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2], out r1, out r2); break;
+                                    case 0:
+                                    case 1:
+                                    case 2:
+                                        DoubleList[type](PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2]); break;
+                                }
                             }
                         }
                         m += w;
@@ -1068,15 +1161,48 @@ namespace EllipticCurveCryptography
                 {
                     if (str[m] == '1')
                     {
-                        AddList[type](x_temp, y_temp, z_temp, x2, y2, z2, a, p, out x3, out y3, out z3);
+                        switch (type)
+                        {
+                            case 4:
+                                Add_ModifiedJacoby_Coord(x_temp, y_temp, z_temp, t1, x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                            case 3:
+                                Add_JacobyChudnovskii_Coord(x_temp, y_temp, z_temp, r1, r2, x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                            case 0:
+                            case 1:
+                            case 2:
+                                AddList[type](x_temp, y_temp, z_temp, x2, y2, z2, a, p, out x3, out y3, out z3); break;
+                        }
                         x2 = x3;
                         y2 = y3;
                         z2 = z3;
+                        t2 = t3;
+                        r3 = r5;
+                        r4 = r6;
                     }
-                    DoubleList[type](x_temp, y_temp, z_temp, a, p, out x_temp, out y_temp, out z_temp);
+                    switch (type)
+                    {
+                        case 4:
+                            Double_ModifiedJacoby_Coord(x_temp, y_temp, z_temp, t1, a, p, out x_temp, out y_temp, out z_temp, out t1); break;
+                        case 3:
+                            Double_JacobyChudnovskii_Coord(x_temp, y_temp, z_temp, r1, r1, a, p, out x_temp, out y_temp, out z_temp, out r1, out r2); break;
+                        case 0:
+                        case 1:
+                        case 2:
+                            DoubleList[type](x_temp, y_temp, z_temp, a, p, out x_temp, out y_temp, out z_temp); break;
+                    }
                     for (int j = 0; j < h; j++)
                     {
-                        DoubleList[type](PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2]);
+                        switch (type)
+                        {
+                            case 4:
+                                Double_ModifiedJacoby_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], t1, a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2], out t1); break;
+                            case 3:
+                                Double_JacobyChudnovskii_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], r1, r1, a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2], out r1, out r2); break;
+                            case 0:
+                            case 1:
+                            case 2:
+                                DoubleList[type](PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], a, p, out PreComputation[j, 0], out PreComputation[j, 1], out PreComputation[j, 2]); break;
+                        }
                     }
                     m++;
                 }
@@ -1093,7 +1219,11 @@ namespace EllipticCurveCryptography
             int temp_step = (int)(BigInteger.Pow(2, w - 1));
             int count = (int)(BigInteger.Pow(2, w) - temp_step);
             BigInteger[,] PreComputation = new BigInteger[count, 3];
-            BigInteger x3 = 0, y3 = 0, z3 = 0;
+            BigInteger x3 = 0, y3 = 0, z3 = 0, t3 = 0, r5 = 0, r6 = 0;
+            BigInteger t1 = a * BigInteger.Pow(z1, 4); BigInteger t2 = 0;
+            BigInteger r1 = z1 * z1;
+            BigInteger r2 = z1 * z1 * z1;
+            BigInteger r3 = 0, r4 = 0;
             for (int i = 0; i < count; i++)
             {
                 Point_Multiplication_Affine_Coord_1(x1, y1, z1, a, temp_step + i, p, out x2, out y2, out z2, type);
@@ -1114,10 +1244,23 @@ namespace EllipticCurveCryptography
                 string str = new string(ToBin(k).Reverse().ToArray());
                 if (str[m - 1] == '0')
                 {
-                    DoubleList[type](x2, y2, z2, a, p, out x3, out y3, out z3);
+                    switch (type)
+                    {
+                        case 4:
+                            Double_ModifiedJacoby_Coord(x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                        case 3:
+                            Double_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                        case 0:
+                        case 1:
+                        case 2:
+                            DoubleList[type](x2, y2, z2, a, p, out x3, out y3, out z3); break;
+                    }
                     x2 = x3;
                     y2 = y3;
                     z2 = z3;
+                    t2 = t3;
+                    r3 = r5;
+                    r4 = r6;
                     m--;
                 }
                 else
@@ -1144,10 +1287,23 @@ namespace EllipticCurveCryptography
                     {
                         for (int j = legth_temp; j > 0; j--)
                         {
-                            DoubleList[type](x2, y2, z2, a, p, out x3, out y3, out z3);
+                            switch (type)
+                            {
+                                case 4:
+                                    Double_ModifiedJacoby_Coord(x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                                case 3:
+                                    Double_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                                case 0:
+                                case 1:
+                                case 2:
+                                    DoubleList[type](x2, y2, z2, a, p, out x3, out y3, out z3); break;
+                            }
                             x2 = x3;
                             y2 = y3;
                             z2 = z3;
+                            t2 = t3;
+                            r3 = r5;
+                            r4 = r6;
                             string temp_str = new string(ToBin(temp_1).Reverse().ToArray());
                             if (temp_str[j - 1] == '1')
                             {
@@ -1159,15 +1315,41 @@ namespace EllipticCurveCryptography
                     {
                         for (int d = 1; d <= w; d++)
                         {
-                            DoubleList[type](x2, y2, z2, a, p, out x3, out y3, out z3);
+                            switch (type)
+                            {
+                                case 4:
+                                    Double_ModifiedJacoby_Coord(x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                                case 3:
+                                    Double_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                                case 0:
+                                case 1:
+                                case 2:
+                                    DoubleList[type](x2, y2, z2, a, p, out x3, out y3, out z3); break;
+                            }
                             x2 = x3;
                             y2 = y3;
                             z2 = z3;
+                            t2 = t3;
+                            r3 = r5;
+                            r4 = r6;
                         }
-                        AddList[type](PreComputation[temp_1 - temp_step, 0], PreComputation[temp_1 - temp_step, 1], PreComputation[temp_1 - temp_step, 2], x2, y2, z2, a, p, out x3, out y3, out z3);
+                        switch (type)
+                        {
+                            case 4:
+                                Add_ModifiedJacoby_Coord(PreComputation[temp_1 - temp_step, 0], PreComputation[temp_1 - temp_step, 1], PreComputation[temp_1 - temp_step, 2], t1, x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                            case 3:
+                                Add_JacobyChudnovskii_Coord(PreComputation[temp_1 - temp_step, 0], PreComputation[temp_1 - temp_step, 1], PreComputation[temp_1 - temp_step, 2], r1, r2, x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                            case 0:
+                            case 1:
+                            case 2:
+                                AddList[type](PreComputation[temp_1 - temp_step, 0], PreComputation[temp_1 - temp_step, 1], PreComputation[temp_1 - temp_step, 2], x2, y2, z2, a, p, out x3, out y3, out z3); break;
+                        }
                         x2 = x3;
                         y2 = y3;
                         z2 = z3;
+                        t2 = t3;
+                        r3 = r5;
+                        r4 = r6;
                     }
                     m -= w;
                 }
@@ -1862,6 +2044,10 @@ namespace EllipticCurveCryptography
             out BigInteger x3, out BigInteger y3, out BigInteger z3, out double time, int type)
         {
             BigInteger[,] mas_k;
+            BigInteger t1 = a * BigInteger.Pow(z1, 4); BigInteger t2 = 0;
+            BigInteger r1 = z1 * z1;
+            BigInteger r2 = z1 * z1 * z1;
+            BigInteger r3 = 0, r4 = 0;
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             mas_k = Functions.Convert_to_DBNS1(k);
@@ -1884,21 +2070,63 @@ namespace EllipticCurveCryptography
                 BigInteger v = mas_k[i, 2];
                 for (int j = 0; j < u; j++)
                 {
-                    DoubleList[type](x3, y3, z3, a, p, out x3, out y3, out z3);
+                    switch (type)
+                    {
+                        case 4: Double_ModifiedJacoby_Coord(x3, y3, z3, t2, a, p, out x3, out y3, out z3, out t2); break;
+                        case 3: Double_JacobyChudnovskii_Coord(x3, y3, z3, r3, r4, a, p, out x3, out y3, out z3, out r3, out r4); break;
+                        case 2:
+                        case 1:
+                        case 0:
+                            DoubleList[type](x3, y3, z3, a, p, out x3, out y3, out z3); break;
+                    }
                 }
                 for (int j = 0; j < v; j++)
                 {
-                    TernaryList[type](x3, y3, z3, a, p, out x3, out y3, out z3);
+                    switch (type)
+                    {
+                        case 4: Ternary.Ternary_ModifiedJacoby(x3, y3, z3, t2, a, p, out x3, out y3, out z3, out t2); break;
+                        case 3: Ternary.Ternary_ChudnovskiiJacoby(x3, y3, z3, r3, r4, a, p, out x3, out y3, out z3, out r3, out r4); break;
+                        case 2:
+                        case 1:
+                        case 0:
+                            TernaryList[type](x3, y3, z3, a, p, out x3, out y3, out z3); break;
+                    }
                 }
-                PointMultiplication.AddList[type](x1, mas_k[i, 0] * y1, z1, x3, y3, z3, a, p, out x3, out y3, out z3);
+                switch (type)
+                {
+                    case 4:
+                        Add_ModifiedJacoby_Coord(x1, mas_k[i, 0] * y1, z1, t1, x3, y3, z3, t2, a, p, out x3, out y3, out z3, out t2); break;
+                    case 3:
+                        Add_JacobyChudnovskii_Coord(x1, mas_k[i, 0] * y1, z1, r1, r2, x3, y3, z3, r3, r4, a, p, out x3, out y3, out z3, out r3, out r4); break;
+                    case 0:
+                    case 1:
+                    case 2:
+                        AddList[type](x1, mas_k[i, 0] * y1, z1, x3, y3, z3, a, p, out x3, out y3, out z3); break;
+                }
             }
             for (BigInteger i = 0; i < mas_k[0, 1]; i++)
             {
-                DoubleList[type](x3, y3, z3, a, p, out x3, out y3, out z3);
+                switch (type)
+                {
+                    case 4: Double_ModifiedJacoby_Coord(x3, y3, z3, t2, a, p, out x3, out y3, out z3, out t2); break;
+                    case 3: Double_JacobyChudnovskii_Coord(x3, y3, z3, r3, r4, a, p, out x3, out y3, out z3, out r3, out r4); break;
+                    case 2:
+                    case 1:
+                    case 0:
+                        DoubleList[type](x3, y3, z3, a, p, out x3, out y3, out z3); break;
+                }
             }
             for (BigInteger i = 0; i < mas_k[0, 2]; i++)
             {
-                TernaryList[type](x3, y3, z3, a, p, out x3, out y3, out z3);
+                switch (type)
+                {
+                    case 4: Ternary.Ternary_ModifiedJacoby(x3, y3, z3, t2, a, p, out x3, out y3, out z3, out t2); break;
+                    case 3: Ternary.Ternary_ChudnovskiiJacoby(x3, y3, z3, r3, r4, a, p, out x3, out y3, out z3, out r3, out r4); break;
+                    case 2:
+                    case 1:
+                    case 0:
+                        TernaryList[type](x3, y3, z3, a, p, out x3, out y3, out z3); break;
+                }
             }
             if (x3 == 0 && y3 != 0)
             {
@@ -1912,6 +2140,10 @@ namespace EllipticCurveCryptography
             out BigInteger x3, out BigInteger y3, out BigInteger z3, out double time, int type)
         {
             BigInteger[,] mas_k;
+            BigInteger t1 = a * BigInteger.Pow(z1, 4); BigInteger t2 = 0;
+            BigInteger r1 = z1 * z1;
+            BigInteger r2 = z1 * z1 * z1;
+            BigInteger r3 = 0, r4 = 0;
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             //mas_k = Functions.Convert_to_DBNS_1(k, a_max, b_max);
@@ -1937,15 +2169,34 @@ namespace EllipticCurveCryptography
                 BigInteger v = mas_k[i, 2];
                 for (int j = 0; j < u; j++)
                 {
-                    DoubleList[type](x1, y1, z1, a, p, out x1, out y1, out z1);
+                    switch (type)
+                    {
+                        case 4: Double_ModifiedJacoby_Coord(x1, y1, z1, t1, a, p, out x1, out y1, out z1, out t1); break;
+                        case 3: Double_JacobyChudnovskii_Coord(x1, y1, z1, r1, r2, a, p, out x1, out y1, out z1, out r1, out r2); break;
+                        case 2: case 1: case 0: DoubleList[type](x1, y1, z1, a, p, out x1, out y1, out z1); break;
+                    }
                 }
 
                 for (int j = 0; j < v; j++)
                 {
-                    TernaryList[type](x1, y1, z1, a, p, out x1, out y1, out z1);
+                    switch (type)
+                    {
+                        case 4: Ternary.Ternary_ModifiedJacoby(x1, y1, z1, t1, a, p, out x1, out y1, out z1, out t1); break;
+                        case 3: Ternary.Ternary_ChudnovskiiJacoby(x1, y1, z1, r1, r2, a, p, out x1, out y1, out z1, out r1, out r2); break;
+                        case 2: case 1: case 0: TernaryList[type](x1, y1, z1, a, p, out x1, out y1, out z1); break;
+                    }
                 }
-
-                AddList[type](x1, mas_k[i, 0] * y1, z1, x3, y3, z3, a, p, out x3, out y3, out z3);
+                switch (type)
+                {
+                    case 4:
+                        Add_ModifiedJacoby_Coord(x1, mas_k[i, 0] * y1, z1, t1, x3, y3, z3, t2, a, p, out x3, out y3, out z3, out t2); break;
+                    case 3:
+                        Add_JacobyChudnovskii_Coord(x1, mas_k[i, 0] * y1, z1, r1, r2, x3, y3, z3, r3, r4, a, p, out x3, out y3, out z3, out r3, out r4); break;
+                    case 0:
+                    case 1:
+                    case 2:
+                        AddList[type](x1, mas_k[i, 0] * y1, z1, x3, y3, z3, a, p, out x3, out y3, out z3); break;
+                }
             }
             if (x3 == 0 && y3 != 0)
             {
@@ -2200,6 +2451,10 @@ namespace EllipticCurveCryptography
             ECC e = new ECC();
             BigInteger[,] PreComputation = new BigInteger[S.Length, 3];
             Tree tree;
+            BigInteger t1 = a * BigInteger.Pow(z1, 4); BigInteger t2 = 0;
+            BigInteger r1 = z1 * z1;
+            BigInteger r2 = z1 * z1 * z1;
+            BigInteger r3 = 0, r4 = 0;
             List<Tree.DecompositonItem> decomposition = new List<Tree.DecompositonItem>();
             if (e.Flag)
             {
@@ -2239,11 +2494,30 @@ namespace EllipticCurveCryptography
                 if (i.offset != 0)
                 {
                     Int16 b = (Int16)(BigInteger.Abs(i.offset) - 1);
-                    Add_Affine_Coord(x2, y2, z2, PreComputation[b, 0], PreComputation[b, 1] * i.offset.Sign, PreComputation[b, 2], a, p, out x2, out y2, out z2);
+                    switch (type)
+                    {
+                        case 4:
+                            Add_ModifiedJacoby_Coord(x2, y2, z2, t2, PreComputation[b, 0], PreComputation[b, 1] * i.offset.Sign, PreComputation[b, 2], t1, a, p, out x2, out y2, out z2, out t2); break;
+                        case 3:
+                            Add_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, PreComputation[b, 0], PreComputation[b, 1] * i.offset.Sign, PreComputation[b, 2], r1, r2, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                        case 0:
+                        case 1:
+                        case 2:
+                            Add_Affine_Coord(x2, y2, z2, PreComputation[b, 0], PreComputation[b, 1] * i.offset.Sign, PreComputation[b, 2], a, p, out x2, out y2, out z2); break;
+                    }
                 }
             }
-            Add_Affine_Coord(x2, y2, z2, PreComputation[0, 0], PreComputation[0, 1], PreComputation[0, 2], a, p, out x2, out y2, out z2);
-
+            switch (type)
+            {
+                case 4:
+                    Add_ModifiedJacoby_Coord(x2, y2, z2, t2, PreComputation[0, 0], PreComputation[0, 1], PreComputation[0, 2], t1, a, p, out x2, out y2, out z2, out t2); break;
+                case 3:
+                    Add_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, PreComputation[0, 0], PreComputation[0, 1], PreComputation[0, 2], r1, r2, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                case 0:
+                case 1:
+                case 2:
+                    Add_Affine_Coord(x2, y2, z2, PreComputation[0, 0], PreComputation[0, 1], PreComputation[0, 2], a, p, out x2, out y2, out z2); break;
+            }
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             time = ts.TotalMilliseconds;
@@ -2255,6 +2529,10 @@ namespace EllipticCurveCryptography
             var tree = new Tree(k, S, M, B);
             var decomposition = tree.GetDecomposition();
             BigInteger[,] PreComputation = new BigInteger[S.Length, 3];
+            BigInteger t1 = a * BigInteger.Pow(z1, 4); BigInteger t2 = 0;
+            BigInteger r1 = z1 * z1;
+            BigInteger r2 = z1 * z1 * z1;
+            BigInteger r3 = 0, r4 = 0;
             for (int i = 0; i < S.Length; i++)
             {
                 Point_Multiplication_Affine_Coord_1(x1, y1, z1, a, S[i], p, out x2, out y2, out z2, type);
@@ -2279,7 +2557,17 @@ namespace EllipticCurveCryptography
                 if (i.offset != 0)
                 {
                     Int16 b = (Int16)(BigInteger.Abs(i.offset) - 1);
-                    Add_Affine_Coord(x2, y2, z2, PreComputation[b, 0], PreComputation[b, 1] * i.offset.Sign, PreComputation[b, 2], a, p, out x2, out y2, out z2);
+                    switch (type)
+                    {
+                        case 4:
+                            Add_ModifiedJacoby_Coord(x2, y2, z2, t2, PreComputation[b, 0], PreComputation[b, 1] * i.offset.Sign, PreComputation[b, 2], t1, a, p, out x2, out y2, out z2, out t2); break;
+                        case 3:
+                            Add_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, PreComputation[b, 0], PreComputation[b, 1] * i.offset.Sign, PreComputation[b, 2], r1, r2, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                        case 0:
+                        case 1:
+                        case 2:
+                            Add_Affine_Coord(x2, y2, z2, PreComputation[b, 0], PreComputation[b, 1] * i.offset.Sign, PreComputation[b, 2], a, p, out x2, out y2, out z2); break;
+                    }
                 }
             }
             stopWatch.Stop();
@@ -2346,17 +2634,17 @@ namespace EllipticCurveCryptography
                 {
                     switch(type)
                     {
-                        case 4: Double_ModifiedJacoby_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], t1, a, p, out x2, out y2, out z2, out t2); break;
-                        case 3: Double_JacobyChudnovskii_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], r1, r2, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                        case 4: Double_ModifiedJacoby_Coord(x2, y2, z2, t2, a, p, out x2, out y2, out z2, out t2); break;
+                        case 3: Double_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, a, p, out x2, out y2, out z2, out r3, out r4); break;
                         case 0: case 1: case 2: DoubleList[type](x2, y2, z2, a, p, out x2, out y2, out z2); break;
                     }              
                 }
                 switch(type)
                 {
                     case 4:
-                        Add_ModifiedJacoby_Coord(x2, y2, z2, t1, PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], t2, a, p, out x2, out y2, out z2, out t2); break;
+                        Add_ModifiedJacoby_Coord(x2, y2, z2, t2, PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], t1, a, p, out x2, out y2, out z2, out t2); break;
                     case 3:
-                        Add_JacobyChudnovskii_Coord(x2, y2, z2, r1, r2, PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], r3, r4, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                        Add_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], r1, r2, a, p, out x2, out y2, out z2, out r3, out r4); break;
                     case 0:
                     case 1:
                     case 2: AddList[type](x2, y2, z2, PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], a, p, out x2, out y2, out z2); break;
@@ -2423,9 +2711,9 @@ namespace EllipticCurveCryptography
                 {
                     switch (type)
                     {
-                        case 4: Double_ModifiedJacoby_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], t1, a, p, out x2, out y2, out z2, out t2); break;
+                        case 4: Double_ModifiedJacoby_Coord(x2, y2, z2, t2, a, p, out x2, out y2, out z2, out t2); break;
                         case 3:
-                            Double_JacobyChudnovskii_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], r1, r2, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                            Double_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, a, p, out x2, out y2, out z2, out r3, out r4); break;
                         case 0:
                         case 1:
                         case 2:
@@ -2530,9 +2818,9 @@ namespace EllipticCurveCryptography
                 {
                     switch (type)
                     {
-                        case 4: Double_ModifiedJacoby_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], t1, a, p, out x2, out y2, out z2, out t2); break;
+                        case 4: Double_ModifiedJacoby_Coord(x2, y2, z2, t2, a, p, out x2, out y2, out z2, out t2); break;
                         case 3:
-                            Double_JacobyChudnovskii_Coord(PreComputation[j, 0], PreComputation[j, 1], PreComputation[j, 2], r1, r2, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                            Double_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, a, p, out x2, out y2, out z2, out r3, out r4); break;
                         case 0:
                         case 1:
                         case 2:
@@ -2546,9 +2834,9 @@ namespace EllipticCurveCryptography
                     switch (type)
                     {
                         case 4:
-                            Add_ModifiedJacoby_Coord(x2, y2, z2, t1, PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], t2, a, p, out x2, out y2, out z2, out t2); break;
+                            Add_ModifiedJacoby_Coord(PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], t1, x2, y2, z2, t2, a, p, out x2, out y2, out z2, out t2); break;
                         case 3:
-                            Add_JacobyChudnovskii_Coord(x2, y2, z2, r1, r2, PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], r3, r4, a, p, out x2, out y2, out z2, out r3, out r4); break;
+                            Add_JacobyChudnovskii_Coord(PreComputation[sizeNewStr - 1, 0], PreComputation[sizeNewStr - 1, 1], PreComputation[sizeNewStr - 1, 2], r1, r2, x2, y2, z2, r3, r4, a, p, out x2, out y2, out z2, out r3, out r4); break;
                         case 0:
                         case 1:
                         case 2:
