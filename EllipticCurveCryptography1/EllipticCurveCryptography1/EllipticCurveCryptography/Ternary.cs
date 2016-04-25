@@ -28,7 +28,6 @@ namespace EllipticCurveCryptography
             PointMultiplication.Double_Projective_Coord(x1, y1, z1, a, p, out x2, out y2, out z2);
             PointMultiplication.Add_Projective_Coord(x1, y1, z1, x2, y2, z2, a, p, out x3, out y3, out z3);
         }
-
         public static void Ternary_Jacoby_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             BigInteger x2, y2, z2;
@@ -36,16 +35,13 @@ namespace EllipticCurveCryptography
             PointMultiplication.Double_Jacoby_Coord(x1, y1, z1, a, p, out x2, out y2, out z2);
             PointMultiplication.Add_Jacoby_Coord(x1, y1, z1, x2, y2, z2, a, p, out x3, out y3, out z3);
         }
-
         public static void Ternary_Affine_Coord_1(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             BigInteger x2, y2, z2;
 
            PointMultiplication.Double_Affine_Coord(x1, y1, z1, a, p, out x2, out y2, out z2);
            PointMultiplication.Add_Affine_Coord(x1, y1, z1, x2, y2, z2, a, p, out x3, out y3, out z3);
-
         }
-
         public static void Ternary_Affine_Coord_2(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             BigInteger x_temp, z_temp, y_temp, d, d_, inv, d_temp, lambda_1, lambda_2;
@@ -89,7 +85,6 @@ namespace EllipticCurveCryptography
             if (y3 < 0) y3 += p;
 
         }
-
         public static void Ternary_Affine_Coord_3(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             BigInteger d, inv1, inv2, lambda_1, lambda_2, temp, temp_1, temp_2;
@@ -129,7 +124,6 @@ namespace EllipticCurveCryptography
             if (y3 < 0) y3 += p;
 
         }
-
         public static void Ternary_Affine_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
         {
             if (y1 == 0 || z1 == 0)
@@ -187,6 +181,20 @@ namespace EllipticCurveCryptography
 
             }
         }
-    
+        public static void Ternary_ModifiedJacoby(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger t1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3, 
+            out BigInteger t3)
+        {
+            BigInteger x2, y2, z2, t2;
+            PointMultiplication.Double_ModifiedJacoby_Coord(x1, y1, z1, t1, a, p, out x2, out y2, out z2, out t2);
+            PointMultiplication.Add_ModifiedJacoby_Coord(x1, y1, z1, t1, x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3);
+        }
+        public static void Ternary_ChudnovskiiJacoby(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger r1, BigInteger r2, BigInteger a,
+            BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3, out BigInteger r5, out BigInteger r6)
+        {
+            BigInteger x2, y2, z2, r3, r4;
+            PointMultiplication.Double_JacobyChudnovskii_Coord(x1, y1, z1, r1, r2, a, p, out x2, out y2, out z2, out r3, out r4);
+            PointMultiplication.Add_JacobyChudnovskii_Coord(x1, y1, z1, r1, r2, x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6);
+        }
+
     }
 }
