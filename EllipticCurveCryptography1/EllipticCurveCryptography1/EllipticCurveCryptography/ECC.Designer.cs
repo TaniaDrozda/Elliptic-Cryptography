@@ -64,6 +64,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.writePointsInFile = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button6 = new System.Windows.Forms.Button();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.textBox40 = new System.Windows.Forms.TextBox();
             this.label55 = new System.Windows.Forms.Label();
@@ -116,6 +117,8 @@
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.radioButton50 = new System.Windows.Forms.RadioButton();
+            this.radioButton49 = new System.Windows.Forms.RadioButton();
             this.radioButton32 = new System.Windows.Forms.RadioButton();
             this.radioButton31 = new System.Windows.Forms.RadioButton();
             this.radioButton30 = new System.Windows.Forms.RadioButton();
@@ -291,7 +294,8 @@
             this.textBox48 = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.radioButton49 = new System.Windows.Forms.RadioButton();
+            this.label70 = new System.Windows.Forms.Label();
+            this.textBox52 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox14.SuspendLayout();
@@ -679,6 +683,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button6);
             this.tabPage2.Controls.Add(this.groupBox13);
             this.tabPage2.Controls.Add(this.groupBox12);
             this.tabPage2.Controls.Add(this.groupBox11);
@@ -697,6 +702,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Множення";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(295, 623);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(138, 91);
+            this.button6.TabIndex = 60;
+            this.button6.Text = "Помножити всі та подати результат у Jacobi Chudnovskii/Modified Jacobi та афінних" +
+    " координатах";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // groupBox13
             // 
@@ -1098,6 +1114,8 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.textBox52);
+            this.groupBox11.Controls.Add(this.label70);
             this.groupBox11.Controls.Add(this.label40);
             this.groupBox11.Controls.Add(this.TestB);
             this.groupBox11.Controls.Add(this.TBWStep);
@@ -1198,16 +1216,39 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.radioButton50);
             this.groupBox10.Controls.Add(this.radioButton49);
             this.groupBox10.Controls.Add(this.radioButton32);
             this.groupBox10.Controls.Add(this.radioButton31);
             this.groupBox10.Controls.Add(this.radioButton30);
             this.groupBox10.Location = new System.Drawing.Point(171, 6);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(165, 111);
+            this.groupBox10.Size = new System.Drawing.Size(165, 128);
             this.groupBox10.TabIndex = 54;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Системи координат";
+            // 
+            // radioButton50
+            // 
+            this.radioButton50.AutoSize = true;
+            this.radioButton50.Location = new System.Drawing.Point(10, 105);
+            this.radioButton50.Name = "radioButton50";
+            this.radioButton50.Size = new System.Drawing.Size(117, 17);
+            this.radioButton50.TabIndex = 62;
+            this.radioButton50.TabStop = true;
+            this.radioButton50.Text = "Jacobi Chudnovskii";
+            this.radioButton50.UseVisualStyleBackColor = true;
+            // 
+            // radioButton49
+            // 
+            this.radioButton49.AutoSize = true;
+            this.radioButton49.Location = new System.Drawing.Point(10, 88);
+            this.radioButton49.Name = "radioButton49";
+            this.radioButton49.Size = new System.Drawing.Size(102, 17);
+            this.radioButton49.TabIndex = 3;
+            this.radioButton49.TabStop = true;
+            this.radioButton49.Text = "Modified Jacoby";
+            this.radioButton49.UseVisualStyleBackColor = true;
             // 
             // radioButton32
             // 
@@ -1545,7 +1586,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(169, 330);
+            this.label15.Location = new System.Drawing.Point(449, 330);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(114, 13);
             this.label15.TabIndex = 38;
@@ -2273,7 +2314,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(186, 127);
+            this.label4.Location = new System.Drawing.Point(526, 127);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 28;
@@ -2992,22 +3033,28 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // radioButton49
+            // label70
             // 
-            this.radioButton49.AutoSize = true;
-            this.radioButton49.Location = new System.Drawing.Point(10, 88);
-            this.radioButton49.Name = "radioButton49";
-            this.radioButton49.Size = new System.Drawing.Size(93, 17);
-            this.radioButton49.TabIndex = 3;
-            this.radioButton49.TabStop = true;
-            this.radioButton49.Text = "Jacobi Quartic";
-            this.radioButton49.UseVisualStyleBackColor = true;
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(319, 83);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(79, 13);
+            this.label70.TabIndex = 66;
+            this.label70.Text = "Number of w = ";
+            // 
+            // textBox52
+            // 
+            this.textBox52.Location = new System.Drawing.Point(396, 80);
+            this.textBox52.Name = "textBox52";
+            this.textBox52.Size = new System.Drawing.Size(50, 20);
+            this.textBox52.TabIndex = 67;
+            this.textBox52.TextChanged += new System.EventHandler(this.textBox52_TextChanged);
             // 
             // ECC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 768);
+            this.ClientSize = new System.Drawing.Size(1184, 750);
             this.Controls.Add(this.tabControl1);
             this.Name = "ECC";
             this.Text = "ECC";
@@ -3329,5 +3376,9 @@
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.RadioButton radioButton48;
         private System.Windows.Forms.RadioButton radioButton49;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.RadioButton radioButton50;
+        private System.Windows.Forms.TextBox textBox52;
+        private System.Windows.Forms.Label label70;
     }
 }

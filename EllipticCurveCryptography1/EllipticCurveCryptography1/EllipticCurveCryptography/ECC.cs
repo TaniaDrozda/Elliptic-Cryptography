@@ -509,15 +509,15 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             richTextBox4.Text = a.ToString();
             richTextBox5.Text = p.ToString();
 
-            if(radioButton43.Checked)
+            if (radioButton43.Checked)
             {
-                EllipticCC.Generate_Point_EC(a, b, p, out points);               
+                EllipticCC.Generate_Point_EC(a, b, p, out points);
             }
-            if(radioButton42.Checked)
+            if (radioButton42.Checked)
             {
-                EllipticCC.generateSimplePointInProjectiveCoord(a, b, p, out points);               
+                EllipticCC.generateSimplePointInProjectiveCoord(a, b, p, out points);
             }
-            if(radioButton41.Checked)
+            if (radioButton41.Checked)
             {
                 EllipticCC.generateSimplePointInJocobianCoord(a, b, p, out points);
             }
@@ -649,8 +649,8 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             x1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             y1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
             z1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[2].Value.ToString());
-            
-             
+
+
             int type = 0;
             if (radioButton30.Checked)
                 type = 0;
@@ -659,7 +659,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             else if (radioButton32.Checked)
                 type = 2;
             else if (radioButton49.Checked)
-                type = 3;
+                type = 4;
             else MessageBox.Show("Виберіть систему координат!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             if (x1 == 0 || y1 == 0 || z1 == 0)
@@ -774,7 +774,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             b_max = BigInteger.Parse(textBox28.Text);
             int count = 0;
             BigInteger step = 0, max_k = 0, k;
-            List<BigInteger> mass_k = new List<BigInteger>();          
+            List<BigInteger> mass_k = new List<BigInteger>();
             BigInteger[] S;
             BigInteger[] M;
             BigInteger B;
@@ -828,87 +828,98 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             double time = 0, time1 = 0;
             points = EllipticCC.ReadFromFile(quantity, out a, out p);
             int p_bits = Functions.ToBin(p).Length;
-            openFileDialog1.Filter = "txt файли(*.txt)|*.txt";          
-            if (radioButton1.Checked )
-                openFileDialog1.FileName = "#1_Time_" + p_bits + ".txt";
-            else if (radioButton2.Checked )
-                openFileDialog1.FileName = "#2_Time_" + p_bits + ".txt";
-            else if (radioButton3.Checked )
-                openFileDialog1.FileName = "#3_Time_" + p_bits + ".txt";
-            else if (radioButton4.Checked )
-                openFileDialog1.FileName = "#4_Time_" + p_bits + ".txt";
-            else if (radioButton5.Checked )
-                openFileDialog1.FileName = "#5_Time_" + p_bits + ".txt";
-            else if (radioButton6.Checked )
-                openFileDialog1.FileName = "#6_Time_" + p_bits + ".txt";
-            else if (radioButton7.Checked )
-                openFileDialog1.FileName = "#7_1_Time_" + p_bits + ".txt";
-            else if (radioButton8.Checked )
-                openFileDialog1.FileName = "#7_2_Time_" + p_bits + ".txt";
-            else if (radioButton9.Checked )
-                openFileDialog1.FileName = "#8_Time_" + p_bits + ".txt";
-            else if (radioButton10.Checked )
-                openFileDialog1.FileName = "#9_Time_" + p_bits + ".txt";
-            else if (radioButton11.Checked )
-                openFileDialog1.FileName = "#10_Time_" + p_bits + ".txt";
-            else if (radioButton12.Checked )
-                openFileDialog1.FileName = "#11_1_Time_" + p_bits + ".txt";
-            else if (radioButton20.Checked )
-                openFileDialog1.FileName = "#11_2_Time_" + p_bits + ".txt";
-            else if (radioButton13.Checked )
-                openFileDialog1.FileName = "#15_Time_" + p_bits + ".txt";
-            else if (radioButton14.Checked )
-                openFileDialog1.FileName = "#12_Time_" + p_bits + ".txt";
-            else if (radioButton21.Checked )
-                openFileDialog1.FileName = "#13_Time_" + p_bits + ".txt";
-            else if (radioButton22.Checked )
-                openFileDialog1.FileName = "#14_Time_" + p_bits + ".txt";
-            else if (radioButton23.Checked )
-                openFileDialog1.FileName = "#16_Time_" + p_bits + ".txt";
-            else if (radioButton24.Checked )
-                openFileDialog1.FileName = "#17_Time_" + p_bits + ".txt";
-            else if (radioButton25.Checked )
-                openFileDialog1.FileName = "#18_Time_" + p_bits + ".txt";
-            else if (radioButton26.Checked )
-                openFileDialog1.FileName = "#19_1_Time_" + p_bits + ".txt";
-            else if (radioButton15.Checked )
-                openFileDialog1.FileName = "#19_2_Time_" + p_bits + ".txt";
-            else if (radioButton16.Checked )
-                openFileDialog1.FileName = "#20_1_Time_" + p_bits + ".txt";
-            else if (radioButton27.Checked )
-                openFileDialog1.FileName = "#20_2_Time_" + p_bits + ".txt";
-            else if (radioButton28.Checked )
-                openFileDialog1.FileName = "#21_Time_" + p_bits + ".txt";
-            else if (radioButton29.Checked )
-                openFileDialog1.FileName = "#22_Time_" + p_bits + ".txt";
-            else if (radioButton35.Checked )
-                openFileDialog1.FileName = "#27_Time_" + p_bits + ".txt";
-            else if (radioButton36.Checked )
-                openFileDialog1.FileName = "#28_Time_" + p_bits + ".txt";
-            else if (radioButton33.Checked )
-                openFileDialog1.FileName = "#29_Time_" + p_bits + ".txt";
-            else if (radioButton34.Checked )
-                openFileDialog1.FileName = "#30_Time_" + p_bits + ".txt";
-            else if (radioButton37.Checked )
-                openFileDialog1.FileName = "#31_Time_" + p_bits + ".txt";
+            openFileDialog1.Filter = "txt файли(*.txt)|*.txt";
+            openFileDialog1.FileName = "#1_Time_" + p_bits + ".txt";
+            /* if (radioButton1.Checked )
+                 openFileDialog1.FileName = "#1_Time_" + p_bits + ".txt";
+             else if (radioButton2.Checked )
+                 openFileDialog1.FileName = "#2_Time_" + p_bits + ".txt";
+             else if (radioButton3.Checked )
+                 openFileDialog1.FileName = "#3_Time_" + p_bits + ".txt";
+             else if (radioButton4.Checked )
+                 openFileDialog1.FileName = "#4_Time_" + p_bits + ".txt";
+             else if (radioButton5.Checked )
+                 openFileDialog1.FileName = "#5_Time_" + p_bits + ".txt";
+             else if (radioButton6.Checked )
+                 openFileDialog1.FileName = "#6_Time_" + p_bits + ".txt";
+             else if (radioButton7.Checked )
+                 openFileDialog1.FileName = "#7_1_Time_" + p_bits + ".txt";
+             else if (radioButton8.Checked )
+                 openFileDialog1.FileName = "#7_2_Time_" + p_bits + ".txt";
+             else if (radioButton9.Checked )
+                 openFileDialog1.FileName = "#8_Time_" + p_bits + ".txt";
+             else if (radioButton10.Checked )
+                 openFileDialog1.FileName = "#9_Time_" + p_bits + ".txt";
+             else if (radioButton11.Checked )
+                 openFileDialog1.FileName = "#10_Time_" + p_bits + ".txt";
+             else if (radioButton12.Checked )
+                 openFileDialog1.FileName = "#11_1_Time_" + p_bits + ".txt";
+             else if (radioButton20.Checked )
+                 openFileDialog1.FileName = "#11_2_Time_" + p_bits + ".txt";
+             else if (radioButton13.Checked )
+                 openFileDialog1.FileName = "#15_Time_" + p_bits + ".txt";
+             else if (radioButton14.Checked )
+                 openFileDialog1.FileName = "#12_Time_" + p_bits + ".txt";
+             else if (radioButton21.Checked )
+                 openFileDialog1.FileName = "#13_Time_" + p_bits + ".txt";
+             else if (radioButton22.Checked )
+                 openFileDialog1.FileName = "#14_Time_" + p_bits + ".txt";
+             else if (radioButton23.Checked )
+                 openFileDialog1.FileName = "#16_Time_" + p_bits + ".txt";
+             else if (radioButton24.Checked )
+                 openFileDialog1.FileName = "#17_Time_" + p_bits + ".txt";
+             else if (radioButton25.Checked )
+                 openFileDialog1.FileName = "#18_Time_" + p_bits + ".txt";
+             else if (radioButton26.Checked )
+                 openFileDialog1.FileName = "#19_1_Time_" + p_bits + ".txt";
+             else if (radioButton15.Checked )
+                 openFileDialog1.FileName = "#19_2_Time_" + p_bits + ".txt";
+             else if (radioButton16.Checked )
+                 openFileDialog1.FileName = "#20_1_Time_" + p_bits + ".txt";
+             else if (radioButton27.Checked )
+                 openFileDialog1.FileName = "#20_2_Time_" + p_bits + ".txt";
+             else if (radioButton28.Checked )
+                 openFileDialog1.FileName = "#21_Time_" + p_bits + ".txt";
+             else if (radioButton29.Checked )
+                 openFileDialog1.FileName = "#22_Time_" + p_bits + ".txt";
+             else if (radioButton35.Checked )
+                 openFileDialog1.FileName = "#27_Time_" + p_bits + ".txt";
+             else if (radioButton36.Checked )
+                 openFileDialog1.FileName = "#28_Time_" + p_bits + ".txt";
+             else if (radioButton33.Checked )
+                 openFileDialog1.FileName = "#29_Time_" + p_bits + ".txt";
+             else if (radioButton34.Checked )
+                 openFileDialog1.FileName = "#30_Time_" + p_bits + ".txt";
+             else if (radioButton37.Checked )
+                 openFileDialog1.FileName = "#31_Time_" + p_bits + ".txt";*/
             string filename = openFileDialog1.FileName;
             FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
             int type = 0;
-            if (radioButton30.Checked )
+            if (radioButton30.Checked)
             {
                 type = 0;
                 sw.WriteLine("Афінні координати");
             }
-            else if (radioButton31.Checked )
+            else if (radioButton31.Checked)
             {
                 type = 1;
                 sw.WriteLine("Проективні координати");
             }
-            else if (radioButton32.Checked )
+            else if (radioButton32.Checked)
             {
                 type = 2;
                 sw.WriteLine("Координати Якобі");
+            }
+            else if (radioButton50.Checked)
+            {
+                type = 3;
+                sw.WriteLine("Jacoby Chudnovskii");
+            }
+            else if (radioButton49.Checked)
+            {
+                type = 4;
+                sw.WriteLine("Modified Jacoby");
             }
             else
             {
@@ -916,96 +927,95 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 sw.WriteLine("Афінні координати");
             }
 
-            if (openFileDialog1.ShowDialog() == DialogResult.Cancel) { sw.Close(); }
-            else
+            /*  if (openFileDialog1.ShowDialog() == DialogResult.Cancel) { sw.Close(); }
+              else
+              {*/
+            Stopwatch stopWatch = new Stopwatch();
+            for (int l = 0; l < mass_k.Count; l++)
             {
-                Stopwatch stopWatch = new Stopwatch();
-                for (int l = 0; l < mass_k.Count; l++)
+                for (int i = 0; i < quantity; i++)
                 {
-                    for (int i = 0; i < quantity; i++)
-                    {
-                        time = 0;
-                        stopWatch.Start();             
-                        if (radioButton1.Checked)
-                            Point_Multiplication_Affine_Coord_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, type);
-                        else if (radioButton2.Checked)
-                            Point_Multiplication_Affine_Coord_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, type);
-                        else if (radioButton3.Checked)
-                            Point_Multiplication_Affine_Coord_3(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton4.Checked)
-                            Point_Multiplication_Affine_Coord_4(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton5.Checked)
-                            Point_Multiplication_Affine_Coord_5(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton6.Checked)
-                            Point_Multiplication_Affine_Coord_6(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton7.Checked)
-                            Point_Multiplication_Affine_Coord_7_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
-                        else if (radioButton8.Checked)
-                            Point_Multiplication_Affine_Coord_7_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
-                        else if (radioButton9.Checked )
-                            Point_Multiplication_Affine_Coord_8(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
-                        else if (radioButton10.Checked )
-                            Point_Multiplication_Affine_Coord_9(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton11.Checked )
-                            Point_Multiplication_Affine_Coord_10(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton12.Checked)
-                            Point_Multiplication_Affine_Coord_11_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton20.Checked)
-                            Point_Multiplication_Affine_Coord_11_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton14.Checked)
-                            Point_Multiplication_Affine_Coord_12(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton21.Checked)
-                            Point_Multiplication_Affine_Coord_13(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton22.Checked)
-                            Point_Multiplication_Affine_Coord_14(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton13.Checked)
-                            Point_Multiplication_Affine_Coord_15(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton23.Checked)
-                            Point_Multiplication_Affine_Coord_16(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton24.Checked)
-                            Point_Multiplication_Affine_Coord_17(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton25.Checked)
-                            Point_Multiplication_Affine_Coord_18(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton26.Checked)
-                            Point_Multiplication_Affine_Coord_19(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                        else if (radioButton15.Checked)
-                            Point_Multiplication_Affine_Coord_19_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                        else if (radioButton16.Checked)
-                            Point_Multiplication_Affine_Coord_20_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                        else if (radioButton27.Checked)
-                            Point_Multiplication_Affine_Coord_20(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
-                        else if (radioButton28.Checked)
-                            Point_Multiplication_Affine_Coord_21(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton29.Checked)
-                            Point_Multiplication_Affine_Coord_22(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton35.Checked)
-                            Point_Multiplication_Affine_Coord_27(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, B, S, M, type, out time);
-                        else if (radioButton36.Checked)
-                            Point_Multiplication_Affine_Coord_28(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, B, S, M, type, out time);
-                        else if (radioButton33.Checked)
-                            Point_Multiplication_Affine_Coord_29(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton34.Checked)
-                            Point_Multiplication_Affine_Coord_30(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        else if (radioButton37.Checked)
-                            Point_Multiplication_Affine_Coord_31(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        stopWatch.Stop();
-                        TimeSpan ts = stopWatch.Elapsed;
-                        time1 += ts.TotalMilliseconds;
-                    }
-                    if (time == 0) time_average[count] = time1 / quantity;
-                    else time_average[count] = time / quantity;
-                    sw.WriteLine(time_average[count]);
-                    count++;
+                    time = 0;
+                    stopWatch.Start();
+                    if (radioButton1.Checked)
+                        Point_Multiplication_Affine_Coord_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, type);
+                    /* else if (radioButton2.Checked)
+                         Point_Multiplication_Affine_Coord_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, type);
+                     else if (radioButton3.Checked)
+                         Point_Multiplication_Affine_Coord_3(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton4.Checked)
+                         Point_Multiplication_Affine_Coord_4(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton5.Checked)
+                         Point_Multiplication_Affine_Coord_5(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton6.Checked)
+                         Point_Multiplication_Affine_Coord_6(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton7.Checked)
+                         Point_Multiplication_Affine_Coord_7_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
+                     else if (radioButton8.Checked)
+                         Point_Multiplication_Affine_Coord_7_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
+                     else if (radioButton9.Checked )
+                         Point_Multiplication_Affine_Coord_8(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
+                     else if (radioButton10.Checked )
+                         Point_Multiplication_Affine_Coord_9(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton11.Checked )
+                         Point_Multiplication_Affine_Coord_10(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton12.Checked)
+                         Point_Multiplication_Affine_Coord_11_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton20.Checked)
+                         Point_Multiplication_Affine_Coord_11_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton14.Checked)
+                         Point_Multiplication_Affine_Coord_12(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton21.Checked)
+                         Point_Multiplication_Affine_Coord_13(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton22.Checked)
+                         Point_Multiplication_Affine_Coord_14(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton13.Checked)
+                         Point_Multiplication_Affine_Coord_15(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton23.Checked)
+                         Point_Multiplication_Affine_Coord_16(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton24.Checked)
+                         Point_Multiplication_Affine_Coord_17(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton25.Checked)
+                         Point_Multiplication_Affine_Coord_18(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton26.Checked)
+                         Point_Multiplication_Affine_Coord_19(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
+                     else if (radioButton15.Checked)
+                         Point_Multiplication_Affine_Coord_19_2(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
+                     else if (radioButton16.Checked)
+                         Point_Multiplication_Affine_Coord_20_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
+                     else if (radioButton27.Checked)
+                         Point_Multiplication_Affine_Coord_20(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type, a_max, b_max);
+                     else if (radioButton28.Checked)
+                         Point_Multiplication_Affine_Coord_21(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton29.Checked)
+                         Point_Multiplication_Affine_Coord_22(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton35.Checked)
+                         Point_Multiplication_Affine_Coord_27(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, B, S, M, type, out time);
+                     else if (radioButton36.Checked)
+                         Point_Multiplication_Affine_Coord_28(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, B, S, M, type, out time);
+                     else if (radioButton33.Checked)
+                         Point_Multiplication_Affine_Coord_29(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton34.Checked)
+                         Point_Multiplication_Affine_Coord_30(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                     else if (radioButton37.Checked)
+                         Point_Multiplication_Affine_Coord_31(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);}}*/
+                    stopWatch.Stop();
+                    TimeSpan ts = stopWatch.Elapsed;
+                    time1 += ts.TotalMilliseconds;
                 }
-                double sumTime = 0;
-                for (int j = 0; j < time_average.Length; j++)
-                {
-                    sumTime += time_average[j];
-                }
-                sw.WriteLine("Среднее время = " + sumTime / count);
-                MessageBox.Show("Записано успішно!", "УСПІШНО!", MessageBoxButtons.OK, MessageBoxIcon.None);
-                sw.Close();
+                if (time == 0) time_average[count] = time1 / quantity;
+                else time_average[count] = time / quantity;
+                sw.WriteLine(time_average[count]);
+                count++;
             }
+            double sumTime = 0;
+            for (int j = 0; j < time_average.Length; j++)
+            {
+                sumTime += time_average[j];
+            }
+            //sw.WriteLine("Среднее время = " + sumTime / count);
+            MessageBox.Show("Записано успішно!", "УСПІШНО!", MessageBoxButtons.OK, MessageBoxIcon.None);
+            sw.Close();
         }
 
         private void writeTimeOfAllAlgorithmsInFile_Click(object sender, EventArgs e)
@@ -1063,42 +1073,53 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             double[,] time_average;
             if (radioButton17.Checked)
             {
-                time_average = new double[(int)(max_k - mass_k[0] / step) + 1, 31]; //14 + 7 - kol-vo algoritmov realizovanih
+                time_average = new double[(int)(max_k - mass_k[0] / step) + 1, 14]; //32
             }
             else
             {
-                time_average = new double[mass_k.Count, 31]; //14 + 7 - kol-vo algoritmov realizovanih
+                time_average = new double[mass_k.Count, 14]; //32
             }
             double time = 0;
 
             points = EllipticCC.ReadFromFile(quantity, out a, out p);
             int p_bits = Functions.ToBin(p).Length;
-            openFileDialog1.Filter = "txt файли(*.txt)|*.txt";
-            openFileDialog1.FileName = "All_Algorithms_Time_" + p_bits + ".txt";
-            string filename = openFileDialog1.FileName;
-            FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
             int type = 0;
+            string sysCoord = "";
             if (radioButton30.Checked)
             {
                 type = 0;
-                sw.WriteLine("Афінні координати");
+                sysCoord = "AffineCoordinate";
             }
             else if (radioButton31.Checked)
             {
                 type = 1;
-                sw.WriteLine("Проективні координати");
+                sysCoord = "ProjectiveCoordinate";
             }
             else if (radioButton32.Checked)
             {
                 type = 2;
-                sw.WriteLine("Координати Якобі");
+                sysCoord = "JacobiCoordinate";
+            }
+            else if (radioButton50.Checked)
+            {
+                type = 3;
+                sysCoord = "JacobiChudnovskyiCoordinate";
+            }
+            else if (radioButton49.Checked)
+            {
+                type = 4;
+                sysCoord = "ModifiedJacobiCoordinate";
             }
             else
             {
                 MessageBox.Show("Виберіть систему координат!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                sw.WriteLine("Афінні координати");
             }
+            openFileDialog1.Filter = "txt файли(*.txt)|*.txt";
+            openFileDialog1.FileName = "All_Algorithms_Time_" + p_bits + "_" + sysCoord + ".txt"; //All_Algorithms_Time_
+            string filename = openFileDialog1.FileName;
+            FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs);
+            sw.WriteLine(sysCoord);
 
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel) { sw.Close(); }
             else
@@ -1115,7 +1136,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                     for (int i = 0; i < quantity; i++)
                     {
                         TimeSpan ts = new TimeSpan();
-
+                        
                         stopWatch.Start();
                         Point_Multiplication_Affine_Coord_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, type);
                         stopWatch.Stop();
@@ -1134,7 +1155,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                         Point_Multiplication_Affine_Coord_3(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
                         time_average[j, 2] += time;
                         stopWatch.Reset();
-
+                        
                         time = 0;
                         Point_Multiplication_Affine_Coord_4(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
                         time_average[j, 3] += time;
@@ -1149,7 +1170,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                         Point_Multiplication_Affine_Coord_6(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, out time, type);
                         time_average[j, 5] += time;
                         stopWatch.Reset();
-
+                        /*
                         stopWatch.Start();
                         Point_Multiplication_Affine_Coord_7_1(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], w, p, out x2, out y2, out z2, type);
                         stopWatch.Stop();
@@ -1261,61 +1282,68 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                         ts = stopWatch.Elapsed;
                         time_average[j, 21] += ts.TotalMilliseconds;
                         stopWatch.Reset();
-
+                        */
                         stopWatch.Start();
                         Point_Multiplication_Affine_Coord_21(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
                         stopWatch.Stop();
                         ts = stopWatch.Elapsed;
-                        time_average[j, 22] += ts.TotalMilliseconds;
+                        time_average[j, 6] += ts.TotalMilliseconds;
                         stopWatch.Reset();
 
                         stopWatch.Start();
                         Point_Multiplication_Affine_Coord_22(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
                         stopWatch.Stop();
                         ts = stopWatch.Elapsed;
-                        time_average[j, 23] += ts.TotalMilliseconds;
+                        time_average[j, 7] += ts.TotalMilliseconds;
                         stopWatch.Reset();
 
                         stopWatch.Start();
                         Point_Multiplication_Affine_Coord_27(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, B, S, M, type, out time);
                         stopWatch.Stop();
                         ts = stopWatch.Elapsed;
-                        time_average[j, 24] += ts.TotalMilliseconds;
+                        time_average[j, 8] += ts.TotalMilliseconds;
                         stopWatch.Reset();
 
                         stopWatch.Start();
                         Point_Multiplication_Affine_Coord_28(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, B, S, M, type, out time);
                         stopWatch.Stop();
                         ts = stopWatch.Elapsed;
-                        time_average[j, 25] += ts.TotalMilliseconds;
+                        time_average[j, 9] += ts.TotalMilliseconds;
                         stopWatch.Reset();
 
                         time = 0;
                         Point_Multiplication_Affine_Coord_29(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        time_average[j, 26] += time;
+                        time_average[j, 10] += time;
                         stopWatch.Reset();
 
                         time = 0;
                         Point_Multiplication_Affine_Coord_30(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        time_average[j, 27] += time;
+                        time_average[j, 11] += time;
                         stopWatch.Reset();
 
                         time = 0;
                         Point_Multiplication_Affine_Coord_31(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        time_average[j, 28] += time;
+                        time_average[j, 12] += time;
                         stopWatch.Reset();
 
                         time = 0;
                         Point_Multiplication_Affine_Coord_32(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
-                        time_average[j, 29] += time;
+                        time_average[j, 13] += time;
                         stopWatch.Reset();
-
+                        /*
                         stopWatch.Start();
                         Point_Multiplication_Affine_Coord_21m(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
                         stopWatch.Stop();
                         ts = stopWatch.Elapsed;
                         time_average[j, 30] += ts.TotalMilliseconds;
                         stopWatch.Reset();
+
+                        stopWatch.Start();
+                        Point_Multiplication_Affine_Coord_22m(points[i, 0], points[i, 1], points[i, 2], a, mass_k[l], p, out x2, out y2, out z2, out time, type);
+                        stopWatch.Stop();
+                        ts = stopWatch.Elapsed;
+                        time_average[j, 31] += ts.TotalMilliseconds;
+                        stopWatch.Reset();*/
 
                     }
                     j++;
@@ -1325,7 +1353,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 double[] result = getAverageTime(time_average, quantity);
                 for (int i = 0; i < result.Length; i++)
                 {
-                    sw.WriteLine(result[i]);
+                    sw.WriteLine(i + ": " + result[i]);
                 }
 
 
@@ -1379,7 +1407,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             B = BigInteger.Parse(textBox26.Text);
             S = writeToArray(textBox29);
             M = writeToArray(textBox30);
-            string[] numOfAlg = new string[] { "1", "2", "3", "4", "5", "6", "7_1", "7_2", "8", "9", "10", "11_1", "11_2", "12", "13", "14", "15", "16", "17", "18", "19_1", "19_2", "20_1", "20_2", "21", "22", "27", "28", "29", "30", "31", "32", "21m" }; // "22m"
+            string[] numOfAlg = new string[] { "1", "2", "3", "4", "5", "6", "7_1", "7_2", "8", "9", "10", "11_1", "11_2", "12", "13", "14", "15", "16", "17", "18", "19_1", "19_2", "20_1", "20_2", "21", "22", "27", "28", "29", "30", "31", "32", "21m", "22m"};  
             double time = 0;
             x1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             y1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
@@ -1627,14 +1655,14 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
-                /*
+                
                 i++;
                 dataGridView4.Rows.Add();
                 Point_Multiplication_Affine_Coord_22m(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
                 dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
                 dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
                 dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
-                */
+
                 for (int s = 0; s < numOfAlg.Length; s++)
                 {
                     dataGridView4.Rows[s].Cells[0].Value = numOfAlg[s];
@@ -2869,7 +2897,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             BigInteger step = 0;
             string[] name;
             string fname;
-            num = 11;
+            num = 4;// 11;
             name = new string[11];
             name[0] = "3";
             name[1] = "4";
@@ -2904,7 +2932,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
             int p_bits = Functions.ToBin(p).Length;
 
             openFileDialog1.Filter = "txt файли(*.txt)|*.csv";
-            openFileDialog1.FileName = fname + p_bits + "_" + Start.ToString() + "_" + End.ToString() + "_" + Step.ToString() + "_" + DateTime.Now.ToString().Replace(':', '-').Replace(' ', '-').Replace('.', '-') + ".csv";
+            openFileDialog1.FileName = fname + p_bits + "_" + Start.ToString() + "_" + End.ToString() + "_" + Step.ToString() + "_" + DateTime.Now.ToString().Replace('/', '-').Replace(' ', '-').Replace('.', '-').Replace(':', '-') + ".csv";
 
             string filename = openFileDialog1.FileName;
             FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
@@ -2959,7 +2987,8 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                 j = 0;
                 for (BigInteger w = Start; w < End; w += Step)
                 {
-
+                    textBox52.Text = null;                    
+                    textBox52.AppendText(w.ToString());
                     time = 0;
 
                     for (int i = 0; i < quantity; i++)
@@ -2986,6 +3015,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                         Point_Multiplication_Affine_Coord_6(points[i, 0], points[i, 1], 1, a, k1, (int)w, p, out x2, out y2, out z2, out time, type);
                         time_average[3, j] += time;
                         stopWatch.Reset();
+                        /*
                         time = 0;
                         Point_Multiplication_Affine_Coord_9(points[i, 0], points[i, 1], 1, a, k1, (int)w, p, out x2, out y2, out z2, out time, type);
                         time_average[4, j] += time;
@@ -3019,7 +3049,7 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
                         time = 0;
                         Point_Multiplication_Affine_Coord_14(points[i, 0], points[i, 1], 1, a, k1, (int)w, p, out x2, out y2, out z2, out time, type);
                         time_average[10, j] += time;
-                        stopWatch.Reset();
+                        stopWatch.Reset();*/
                     }
                     j++;
 
@@ -3879,7 +3909,454 @@ out BigInteger y2, out BigInteger z2, out double time, int type)
         private void textBox46_TextChanged(object sender, EventArgs e)
         {
 
-        }      
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            dataGridView4.Rows.Clear();
+            BigInteger a, b, p, x1, y1, z1, x2 = 0, y2 = 0, z2 = 0, k, a_max, b_max;
+            int w;
+            a = BigInteger.Parse(richTextBox4.Text);
+            b = -3;
+            p = BigInteger.Parse(richTextBox5.Text);
+            a_max = BigInteger.Parse(textBox27.Text);
+            b_max = BigInteger.Parse(textBox28.Text);
+            k = BigInteger.Parse(textBox4.Text);
+            w = int.Parse(textBox5.Text);
+            BigInteger[] S;
+            BigInteger[] M;
+            BigInteger B;
+            B = BigInteger.Parse(textBox26.Text);
+            S = writeToArray(textBox29);
+            M = writeToArray(textBox30);
+
+            string[] numOfAlg = new string[] { "1", "1", "2", "2", "3", "3", "4", "4", "5", "5", "6", "6","21","21","22","22", "27", "27", "28", "28", "29", "29", "30", "30", "31", "31", "32", "32" };
+
+            double time = 0;
+
+            x1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+            y1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
+            z1 = BigInteger.Parse(dataGridView1.CurrentRow.Cells[2].Value.ToString());
+
+            BigInteger x3, y3, z3;
+            int type = 0;
+            if (radioButton49.Checked)
+            {
+                type = 4;
+            }
+            else
+            {
+                if (radioButton50.Checked)
+                    type = 3;
+                else
+                    MessageBox.Show("Choose coordinate system", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (x1 == 0 || y1 == 0)
+                MessageBox.Show("Выбирете точку!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                int i = 0;
+                dataGridView4.RowCount = 1;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_1(x1, y1, z1, a, k, p, out x2, out y2, out z2, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_2(x1, y1, z1, a, k, p, out x2, out y2, out z2, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_3(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_4(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;               
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_5(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_6(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                /*dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_7_1(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_7_2(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_8(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_9(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_10(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_11_1(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_11_2(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_12(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_13(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_14(x1, y1, z1, a, k, w, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_15(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_16(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_17(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_18(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_19(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_19_2(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_20_1(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_20(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type, a_max, b_max);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;*/
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_21(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_22(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_27(x1, y1, z1, a, k, p, out x2, out y2, out z2, B, S, M, type, out time);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_28(x1, y1, z1, a, k, p, out x2, out y2, out z2, B, S, M, type, out time);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_29(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_30(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_31(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                Point_Multiplication_Affine_Coord_32(x1, y1, z1, a, k, p, out x2, out y2, out z2, out time, type);
+                dataGridView4.Rows[i].Cells[1].Value = x2.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y2.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z2.ToString();
+                i++;
+                dataGridView4.Rows.Add();
+                JacobyToAffine(x2, y2, z2, p, out x3, out y3, out z3);
+                dataGridView4.Rows[i].Cells[1].Value = x3.ToString();
+                dataGridView4.Rows[i].Cells[2].Value = y3.ToString();
+                dataGridView4.Rows[i].Cells[3].Value = z3.ToString();
+                for (int s = 0; s < numOfAlg.Length; s++)
+                {
+                    dataGridView4.Rows[s].Cells[0].Value = numOfAlg[s];
+                }
+            }
+        }
+
+        private void textBox52_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
