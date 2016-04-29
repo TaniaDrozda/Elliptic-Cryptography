@@ -195,6 +195,26 @@ namespace EllipticCurveCryptography
             PointMultiplication.Double_JacobyChudnovskii_Coord(x1, y1, z1, r1, r2, a, p, out x2, out y2, out z2, out r3, out r4);
             PointMultiplication.Add_JacobyChudnovskii_Coord(x1, y1, z1, r1, r2, x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6);
         }
-
+        public static void Quintuple_Affine_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
+        {
+            BigInteger x2, y2, z2;
+            PointMultiplication.Double_Affine_Coord(x1, y1, z1, a, p, out x2, out y2, out z2);
+            PointMultiplication.Double_Affine_Coord(x2, y2, z2, a, p, out x2, out y2, out z2);
+            PointMultiplication.Add_Affine_Coord(x1, y1, z1, x2, y2, z2, a, p, out x3, out y3, out z3);
+        }
+        public static void Quintuple_Projective_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
+        {
+            BigInteger x2, y2, z2;
+            PointMultiplication.Double_Projective_Coord(x1, y1, z1, a, p, out x2, out y2, out z2);
+            PointMultiplication.Double_Projective_Coord(x2, y2, z2, a, p, out x2, out y2, out z2);
+            PointMultiplication.Add_Projective_Coord(x1, y1, z1, x2, y2, z2, a, p, out x3, out y3, out z3);
+        }
+        public static void Quintuple_Jacobi_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p, out BigInteger x3, out BigInteger y3, out BigInteger z3)
+        {
+            BigInteger x2, y2, z2;
+            PointMultiplication.Double_Jacoby_Coord(x1, y1, z1, a, p, out x2, out y2, out z2);
+            PointMultiplication.Double_Jacoby_Coord(x2, y2, z2, a, p, out x2, out y2, out z2);
+            PointMultiplication.Add_Jacoby_Coord(x1, y1, z1, x2, y2, z2, a, p, out x3, out y3, out z3);
+        }
     }
 }
