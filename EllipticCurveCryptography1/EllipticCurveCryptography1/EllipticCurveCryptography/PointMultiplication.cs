@@ -20,9 +20,12 @@ namespace EllipticCurveCryptography
             out BigInteger x3, out BigInteger y3, out BigInteger z3);
         public delegate void TernaryDelegate(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p,
             out BigInteger x3, out BigInteger y3, out BigInteger z3);
+        public delegate void QuintupleDelegate(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger a, BigInteger p,
+            out BigInteger x3, out BigInteger y3, out BigInteger z3);
         private static List<DoubleDelegate> DoubleList;
         private static List<AddDelegate> AddList;
         private static List<TernaryDelegate> TernaryList;
+        private static List<QuintupleDelegate> QuintupleList;
 
         static PointMultiplication()
         {
@@ -41,6 +44,10 @@ namespace EllipticCurveCryptography
             TernaryList.Add(Ternary.Ternary_Projective_Coord);
             TernaryList.Add(Ternary.Ternary_Jacoby_Coord);
             TernaryList.Add(Ternary.Ternary_Jacoby_Qurtic);
+            QuintupleList = new List<QuintupleDelegate>();
+            QuintupleList.Add(Ternary.Quintuple_Affine_Coord);
+            QuintupleList.Add(Ternary.Quintuple_Projective_Coord);
+            QuintupleList.Add(Ternary.Quintuple_Jacobi_Coord);
         }
         #region Adding
         public static void Add_Affine_Coord(BigInteger x1, BigInteger y1, BigInteger z1, BigInteger x2, BigInteger y2, BigInteger z2, BigInteger a, BigInteger p,
@@ -1307,7 +1314,17 @@ namespace EllipticCurveCryptography
                             string temp_str = new string(ToBin(temp_1).Reverse().ToArray());
                             if (temp_str[j - 1] == '1')
                             {
-                                AddList[type](x1, y1, z1, x2, y2, z2, a, p, out x2, out y2, out z2);
+                                switch (type)
+                                {
+                                    case 4:
+                                        Add_ModifiedJacoby_Coord(x2, y2, z2, t2, x2, y2, z2, t2, a, p, out x3, out y3, out z3, out t3); break;
+                                    case 3:
+                                        Add_JacobyChudnovskii_Coord(x2, y2, z2, r3, r4, x2, y2, z2, r3, r4, a, p, out x3, out y3, out z3, out r5, out r6); break;
+                                    case 0:
+                                    case 1:
+                                    case 2:
+                                        AddList[type](x1, y1, z1, x2, y2, z2, a, p, out x2, out y2, out z2); break;
+                                }
                             }
                         }
                     }
@@ -2005,7 +2022,7 @@ namespace EllipticCurveCryptography
             }
             if (k != sum)
             {
-                throw new Exception("Error");
+                //throw new Exception("Error");
             }
             x2 = x1;
             y2 = mas_k[0, 0] * y1;
@@ -2234,7 +2251,7 @@ namespace EllipticCurveCryptography
                 BigInteger u = mas_k[i, 3];
                 for (int l = 0; l < t; l++)
                 {
-                    Point_Multiplication_Affine_Coord_1(x1, y1, z1, a, 5, p, out x1, out y1, out z1, type);
+                    QuintupleList[type](x1, y1, z1, a, p, out x1, out y1, out z1);
                 }         
                 for (int j = 0; j < v; j++)
                 {
@@ -2269,7 +2286,7 @@ namespace EllipticCurveCryptography
             }
             if (k != sum)
             {
-                throw new Exception("Error");
+               // throw new Exception("Error");
             }
             x3 = x1;
             y3 = y1;
@@ -2289,7 +2306,7 @@ namespace EllipticCurveCryptography
                 }
                 for (int l = 0; l < t; l++)
                 {
-                    Point_Multiplication_Affine_Coord_1(x3, y3, z3, a, 5, p, out x3, out y3, out z3, type);
+                    QuintupleList[type](x3, y3, z3, a, p, out x3, out y3, out z3);
                 }
 
                    AddList[type](x1, mas_k[i, 0] * y1, z1, x3, y3, z3, a, p, out x3, out y3, out z3);
@@ -2304,7 +2321,7 @@ namespace EllipticCurveCryptography
             }
             for (BigInteger i = 0; i < mas_k[0, 3]; i++)
             {
-                Point_Multiplication_Affine_Coord_1(x3, y3, z3, a, 5, p, out x3, out y3, out z3, type);
+                QuintupleList[type](x3, y3, z3, a, p, out x3, out y3, out z3);
             }
             if (x3 == 0 && y3 != 0)
             {
